@@ -177,4 +177,9 @@ class Solution:
                      nums.remove(val)
                 return (len(nums))
 ##################################################################
+#Q28.Find the index of the 1st occurance
+#https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/
+        result=haystack.find(needle)
+        return result
+##################################################################
           
