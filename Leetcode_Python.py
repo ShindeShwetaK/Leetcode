@@ -171,4 +171,10 @@ class Solution:
 		nums[:] = sorted(set(nums))
 		return len(nums)
 ##################################################################
+#Q27.Remove elements
+#https://leetcode.com/problems/remove-element/solutions/5313095/python-codes-beating-90-of-solutions-easiest-solution/
+                while val in nums:
+                     nums.remove(val)
+                return (len(nums))
+##################################################################
           
