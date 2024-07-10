@@ -186,4 +186,20 @@ class Solution:
         result=haystack.find(needle)
         return result
 ##################################################################
-          
+#Q35.Search Insrt position
+def searchInsert(self, nums: List[int], target: int) -> int:
+        if target in nums:
+            return nums.index(target)
+        elif target<nums[0]: return 0
+        elif target > nums[-1]:
+            return nums.index(nums[-1])+1
+        else:   
+            for i in range(len(nums)):
+                 if target<=nums[i]:
+                     return i
+			#or
+        for i in range(len(nums)):
+                 if target<=nums[i]:
+                     return i
+        return(len(nums))
+#######################################################################        
