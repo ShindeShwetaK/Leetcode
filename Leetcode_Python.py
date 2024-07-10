@@ -179,6 +179,10 @@ class Solution:
 ##################################################################
 #Q28.Find the index of the 1st occurance
 #https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/
+        new = haystack.replace(needle,'A')
+        if (new == haystack): return -1
+        else: return new.index('A')
+		#OR
         result=haystack.find(needle)
         return result
 ##################################################################
