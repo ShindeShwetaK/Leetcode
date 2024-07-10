@@ -158,5 +158,17 @@ class Solution:
          anagrams_map[sorted_s].append(s)
 
 #####################################################################
-
+#Q26.Remove dulipcates from a sorted list
+#https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+    def removeDuplicates(self, nums: List[int]) -> int:
+         new=set(nums)
+         nums.clear()
+         for i in new:
+            nums.append(i)
+         nums.sort()
+         return len(nums)
+      #OR
+		nums[:] = sorted(set(nums))
+		return len(nums)
+##################################################################
           
