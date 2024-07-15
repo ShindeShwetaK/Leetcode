@@ -223,6 +223,14 @@ def searchInsert(self, nums: List[int], target: int) -> int:
         l= [int(i) for i in str(new)] #or l = list(map(int, str(new)))
         print(l)
 #####################################################################
+#Q67.Add Binary
+        bin_a= int(a,2) #binary to number
+        bin_b= int(b,2) #binary to number
+        new_num=bin_a+bin_b
+        a_b=(bin(new_num)[2:]) #number to binary
+        return a_b
+####################################################################
+
 
 
 
