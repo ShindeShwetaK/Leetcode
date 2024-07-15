@@ -202,4 +202,10 @@ def searchInsert(self, nums: List[int], target: int) -> int:
                  if target<=nums[i]:
                      return i
         return(len(nums))
-#######################################################################        
+#######################################################################     
+#Q58.Length of Last Word
+    def lengthOfLastWord(self, s: str) -> int:
+        lis = list(s.split())
+        return (len(lis[-1]))
+#######################################################################
+
