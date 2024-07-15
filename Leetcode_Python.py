@@ -208,4 +208,21 @@ def searchInsert(self, nums: List[int], target: int) -> int:
         lis = list(s.split())
         return (len(lis[-1]))
 #######################################################################
+#66.Plus 1
+        new=""
+        new_l=[]
+        for i in digits:
+           new+=str(i)
+        new=int(new)+1
+        for i in str(new):
+           new_l.append(int(i))
+        return new_l
+     #or
+        concat=int("".join([str(i) for i in digits]))
+        new=concat+1
+        l= [int(i) for i in str(new)] #or l = list(map(int, str(new)))
+        print(l)
+#####################################################################
+
+
 
