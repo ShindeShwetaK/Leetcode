@@ -232,6 +232,22 @@ def searchInsert(self, nums: List[int], target: int) -> int:
 	    #or
 	return bin(int(a,2)+int(b,2))[2:]
 	    #or
+        carry=0
+        res=""
+        a,b=a[::-1],b[::-1]
+
+        for i in range(max(len(a),len(b))):
+              dA=int(a[i]) if i < len(a) else 0
+              dB=int(b[i]) if i < len(b) else 0
+    
+              total=dA+dB+carry
+              char=str(total %2) 
+              carry=total//2
+              res=char+res
+    
+        if carry:
+              res="1"+res
+        return res
         
 ####################################################################
 
