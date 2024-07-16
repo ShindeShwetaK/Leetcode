@@ -229,6 +229,10 @@ def searchInsert(self, nums: List[int], target: int) -> int:
         new_num=bin_a+bin_b
         a_b=(bin(new_num)[2:]) #number to binary
         return a_b
+	    #or
+	return bin(int(a,2)+int(b,2))[2:]
+	    #or
+        
 ####################################################################
 
 
