@@ -147,15 +147,16 @@ for i in strs[0]:
 #####################################################################
 #Q49.Group Anagrams
 #https://leetcode.com/problems/group-anagrams/
-from collections import defaultdict
-class Solution:
+    from collections import defaultdict
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        anagrams_map=defaultdict(list)
+        anagrams_list=defaultdict(list)
         result=[]
-
         for s in strs:
-         sorted_s=tuple(sorted(s))
-         anagrams_map[sorted_s].append(s)
+            sorted_s=tuple(sorted(s))
+            anagrams_list[sorted_s].append(s)
+        for i in anagrams_list.values():
+            result.append(i)
+        return result
 
 #####################################################################
 #Q26.Remove dulipcates from a sorted list
