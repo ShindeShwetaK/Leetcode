@@ -274,6 +274,32 @@ def searchInsert(self, nums: List[int], target: int) -> int:
 	    else:
 		    hashset.add(n)
     return False
+######################################################################
+#Q238.Product of an array except self
+#below solution will give exceed time limit error
+          pre=1
+          output=[]
+          for i in range(len(nums)):
+               pre=1
+               for j in range(0,len(nums)):
+                    if j != i:
+                        pre *=nums[j]
+               output.insert(i,pre)
+          return output
+#best solution
+        output=[1] * len(nums)
+
+         pre=1
+         for i in range(len(nums)):
+             output[i]=pre
+             pre*=nums[i]
+
+         post=1
+         for i in range(len(nums)-1,-1,-1):
+             output[i]*=post
+             post*=nums[i]
+         
+         return output
 
 
 
