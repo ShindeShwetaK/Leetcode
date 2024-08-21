@@ -266,6 +266,8 @@ def searchInsert(self, nums: List[int], target: int) -> int:
             r+=1
         return max_p
 ####################################################################
+#Q217. Duplicates in Array.
+
 
 
 
