@@ -267,7 +267,13 @@ def searchInsert(self, nums: List[int], target: int) -> int:
         return max_p
 ####################################################################
 #Q217. Duplicates in Array.
-
+    hashset=set()
+    for n in nums:
+	    if n in hashset:
+		    return True
+	    else:
+		    hashset.add(n)
+    return False
 
 
 
