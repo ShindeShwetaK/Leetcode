@@ -276,7 +276,7 @@ def searchInsert(self, nums: List[int], target: int) -> int:
     return False
 ######################################################################
 #Q238.Product of an array except self
-#below solution will give exceed time limit error
+#below solution will give exceed time limit error because we have 2 loops so O(n^2)
           pre=1
           output=[]
           for i in range(len(nums)):
@@ -286,7 +286,7 @@ def searchInsert(self, nums: List[int], target: int) -> int:
                         pre *=nums[j]
                output.insert(i,pre)
           return output
-#best solution
+#best solution as we have 1 loop so O(n)
         output=[1] * len(nums)
 
          pre=1
