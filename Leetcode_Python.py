@@ -203,6 +203,19 @@ def searchInsert(self, nums: List[int], target: int) -> int:
                  if target<=nums[i]:
                      return i
         return(len(nums))
+#######################################################################
+#Q53. Maximax Subarray
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxsub= nums[0]
+        cursum=0
+
+        for i in nums:
+            if cursum < 0:
+                cursum=0
+            cursum+=i
+            maxsub= max(maxsub,cursum)
+        return maxsub
+#O(n)
 #######################################################################     
 #Q58.Length of Last Word
     def lengthOfLastWord(self, s: str) -> int:
