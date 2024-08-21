@@ -251,7 +251,21 @@ def searchInsert(self, nums: List[int], target: int) -> int:
         return res
         
 ####################################################################
+#Q121. Best Time to Buy and Sell Stock
+  def maxProfit(self, prices: List[int]) -> int:
+        l=0
+        r=1
+        max_p=0
 
+        while r < len(prices):
+            if prices[l] < prices[r]:
+               profit=prices[r]-prices[l]
+               max_p=max(max_p,profit)
+            else:
+                l=r
+            r+=1
+        return max_p
+####################################################################
 
 
 
