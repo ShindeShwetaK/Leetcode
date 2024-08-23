@@ -262,6 +262,21 @@ def searchInsert(self, nums: List[int], target: int) -> int:
         if carry:
               res="1"+res
         return res
+####################################################################
+#Q152.Maximum Product Subarray
+
+   class Solution:
+         def maxProduct(self, nums: List[int]) -> int:
+            res=max(nums)
+            curmin,curmax=1,1
+
+            for n in nums:
+                 tmp=n*curmax
+                 curmax=max(n*curmax,n*curmin,n)
+                 curmin=min(tmp,n*curmin,n)
+                 res=max(res,curmax)
+            return res
+	 #o(n)
         
 ####################################################################
 #Q121. Best Time to Buy and Sell Stock
