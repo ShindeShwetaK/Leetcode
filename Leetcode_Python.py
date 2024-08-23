@@ -321,6 +321,22 @@ def searchInsert(self, nums: List[int], target: int) -> int:
                 r=m-1
         return res
   #o(lon n) as we have not used any for loop
+##################################################################
+#Q.167.Two sum II with sorted array
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        l,r=0,len(numbers)-1
+
+        while l < r :
+            cursum=numbers[l]+numbers[r]
+
+            if cursum > target :
+                r-=1
+            elif cursum < target :
+                l+=1
+            else:
+                return [l+1,r+1]
+        return []
         
 ####################################################################
 #Q121. Best Time to Buy and Sell Stock
