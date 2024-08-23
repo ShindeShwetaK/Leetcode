@@ -371,6 +371,16 @@ class Solution:
             r+=1
         return max_p
 ####################################################################
+#Q.191. number of 1 bit
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        res=0
+        while n:
+            res += n%2   # Add 1 if the least significant bit is 1, otherwise add 0
+            n= n>>1      # Shift right by 1 bit (divide by 2)
+        return res
+        
+####################################################################
 #Q217. Duplicates in Array.
     hashset=set()
     for n in nums:
