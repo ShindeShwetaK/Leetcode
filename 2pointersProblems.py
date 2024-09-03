@@ -20,4 +20,5 @@ for i , a in enumerate(nums):
             while nums[l]==nums[l-1] and l<r:
                 l+=1
 print(new)
+#sort=o(nlogn)+o(n^2) this is complete o(n^2) as it has 2 loops
 #######################################################################################
