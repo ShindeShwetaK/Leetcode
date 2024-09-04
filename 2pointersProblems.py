@@ -1,3 +1,34 @@
+#Q1.Sum of 2 numbers are retuen index when target found
+#https://leetcode.com/problems/two-sum/
+def TwoSum(nums,target):
+    Index=[]
+    i=0
+    j=1
+    y=len(nums)+1
+    temp= nums[i]
+    while i!=y-1:
+        for x in nums[j:y]:
+            temp+=x
+            if temp==target:
+                append.Index(i)
+                append.Index(j)
+                return Index
+            else:
+                j+=1
+                temp= nums[i]
+                if j+1==y:
+                    i+=1
+                    temp= nums[i]
+                    j=i+i
+#Easy solution
+def twoSum(nums,target):
+        n = len(nums)
+        for i in range(n-1):
+            for j in range(i+1, n):
+                if nums[i]+nums[j] == target:
+                    return [i,j]
+        return []
+###########################################################################
 #Q15.3Sum
 #https://leetcode.com/problems/3sum/description/
 nums = [-1,0,1,2,-1,-4]
