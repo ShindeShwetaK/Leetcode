@@ -29,6 +29,22 @@ def twoSum(nums,target):
                     return [i,j]
         return []
 ###########################################################################
+#Q11. Container with most water
+#https://leetcode.com/problems/container-with-most-water/
+    def maxArea(self, height: List[int]) -> int:
+        res=0
+        l,r=0,len(height)-1
+
+        while l<r:
+            area=(r-l)*min(height[l],height[r])
+            res=max(res,area)
+
+            if height[l]< height[r]:
+                l+=1
+            else:
+                r-=1
+        return res
+###########################################################################
 #Q15.3Sum
 #https://leetcode.com/problems/3sum/description/
 nums = [-1,0,1,2,-1,-4]
@@ -110,6 +126,22 @@ class Solution:
             else:
                 return [l+1,r+1]
         return []
+######################################################################################
+#Q259.3sum smaller
+    n=[-2,0,1,3]
+    n.sort()
+    target=2
+    c=0
+    l,r=1,len(n)-1
+    for i in range(len(n)):
+     while l<r:
+        three=n[i]+n[l]+n[r]
+         if three >= target:
+            r-=1
+        else:
+            c+=r-1
+            l+=1
+print(c)
 #######################################################################################
 #Q283. Move zeros
 #https://leetcode.com/problems/move-zeroes/description/
