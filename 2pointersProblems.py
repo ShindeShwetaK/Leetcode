@@ -80,6 +80,22 @@ print(new)
                        l+=1
                        r-=1
         return new
+######################################################################################
+#Q80. remmove duplicate from sorted array II
+#https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description/
+                        l,r=0,1
+                        count=0
+                        while r<len(nums):
+                            if nums[l]==nums[r]:
+                                count+=1
+                                if nums[l]==nums[r] and count>=2:
+                                    nums.remove(nums[r])
+                                    continue
+                            else:
+                                count=0
+                            l+=1
+                            r+=1
+                        return len(nums)
 #######################################################################################
 #Q.167.Two sum II with sorted array
 class Solution:
