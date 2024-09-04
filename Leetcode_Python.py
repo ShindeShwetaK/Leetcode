@@ -1,36 +1,4 @@
 #My Solution
-#Question 1##########################################################################################################################
-#Sum of 2 numbers are retuen index when target found
-#https://leetcode.com/problems/two-sum/
-def TwoSum(nums,target):
-    Index=[]
-    i=0
-    j=1
-    y=len(nums)+1
-    temp= nums[i]
-    while i!=y-1:
-        for x in nums[j:y]:
-            temp+=x
-            if temp==target:
-                append.Index(i)
-                append.Index(j)
-                return Index
-            else:
-                j+=1
-                temp= nums[i]
-                if j+1==y:
-                    i+=1
-                    temp= nums[i]
-                    j=i+i
-#Easy solution
-def twoSum(nums,target):
-        n = len(nums)
-        for i in range(n-1):
-            for j in range(i+1, n):
-                if nums[i]+nums[j] == target:
-                    return [i,j]
-        return []
-
 ####################################################################################
 #Q2:-Add the 2 numbers in link list
 #below solution will not work on Liskedlist but will work on List
@@ -339,21 +307,7 @@ def searchInsert(self, nums: List[int], target: int) -> int:
         return res
   #o(lon n) as we have not used any for loop
 ##################################################################
-#Q.167.Two sum II with sorted array
-class Solution:
-    def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        l,r=0,len(numbers)-1
 
-        while l < r :
-            cursum=numbers[l]+numbers[r]
-
-            if cursum > target :
-                r-=1
-            elif cursum < target :
-                l+=1
-            else:
-                return [l+1,r+1]
-        return []
         
 ####################################################################
 #Q121. Best Time to Buy and Sell Stock
