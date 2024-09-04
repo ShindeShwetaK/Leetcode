@@ -96,6 +96,18 @@ print(new)
                        l+=1
                        r-=1
         return new
+####################################################################################
+#Q75 Sorting the colors in place
+
+        l, r = 0, len(nums)
+        while l <= r - 1:  
+            for i in range(l+1, r):
+                if nums[i] < nums[l]:
+                    nums[l], nums[i] = nums[i], nums[l]
+            l+=1
+            #or
+            nums[:] = [0]*nums.count(0)+[1]*nums.count(1)+[2]*nums.count(2)
+            #o(n^2) time space o(1)
 ######################################################################################
 #Q80. remmove duplicate from sorted array II
 #https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description/
