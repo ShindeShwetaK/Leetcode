@@ -158,4 +158,20 @@ class Solution:
         return nums
 #o(1) as we have note used any memory for swaping we are swaping within
 ####################################################################################
-        
+#Q763.Partitation Lables
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+            lastindex={}
+            for i , a in enumerate(s):
+                lastindex[a]=i
+            
+            result=[]
+            size,end=0,0
+            for i , a in enumerate(s):
+                size+=1
+                end=max(end,lastindex[a])
+                if i==end:
+                    result.append(size)
+                    size=0
+            return result
+#######################################################################################
