@@ -80,3 +80,25 @@ print(new)
                        l+=1
                        r-=1
         return new
+#######################################################################################
+
+
+
+
+#######################################################################################
+#Q283. Move zeros
+#https://leetcode.com/problems/move-zeroes/description/
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        l=0
+        for r in range(len(nums)):
+            if nums[r]:
+                nums[l],nums[r]=nums[r],nums[l]
+                l+=1
+        return nums
+#o(1) as we have note used any memory for swaping we are swaping within
+####################################################################################
+        
