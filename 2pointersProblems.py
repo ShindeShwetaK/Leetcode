@@ -124,6 +124,31 @@ print(new)
                             l+=1
                             r+=1
                         return len(nums)
+######################################################################################
+#q83. Remove duplicated from listed list
+#https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+            cur=head
+            while cur:
+                while cur.next and cur.next.val==cur.val:
+                    cur.next=cur.next.next
+                cur=cur.next
+            return head
+#######################################################################################
+#q82 Remove duplicate from LL II
+#https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description/
+        fake = ListNode(-1)
+        fake.next = head
+        curr, prev = head, fake
+        while curr:
+            while curr.next and curr.val == curr.next.val:
+                curr = curr.next
+            if prev.next == curr:
+                prev = prev.next
+                curr = curr.next
+            else:
+                prev.next = curr.next
+                curr = prev.next
+        return fake.next
 #######################################################################################
 #Q.167.Two sum II with sorted array
 class Solution:
