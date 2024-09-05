@@ -367,6 +367,12 @@ class Solution:
          for i in range(len(nums)-1,-1,-1):
              output[i]*=post
              post*=nums[i]
+################################################################
+res=cur=0
+for i,j in zip([-float('inf')]+price,price):    
+    cur=1+cur*(j>i)    
+    res+=cur>=k        
+return res
          
          return output
 
