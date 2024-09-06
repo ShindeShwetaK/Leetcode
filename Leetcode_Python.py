@@ -375,6 +375,56 @@ for i,j in zip([-float('inf')]+price,price):
 return res
          
          return output
+############################################################
+#Goldman shak
+#https://leetcode.com/discuss/interview-question/5519855/Goldman-Sachs-or-Online-Assessment-or-Crack-the-Lock
+def can_reach_target(N, P, X, M):
+    """
+    Determine if the gold key can be moved to position X starting from position P
+    by reversing M consecutive keys that include the gold key.
+    """
+    if P == X:
+        return True
 
+    # Breadth-First Search (BFS) to explore all possible positions
+    from collections import deque
+    
+    queue = deque([P])
+    visited = set([P])
+    
+    while queue:
+        current = queue.popleft()
+        
+        # Check all possible segments including the gold key
+        start_min = max(1, current - M + 1)
+        start_max = min(N - M + 1, current)
+        
+        for start in range(start_min, start_max + 1):
+            new_position = 2 * start + M - 1 - current
+            if 1 <= new_position <= N and new_position not in visited:
+                if new_position == X:
+                    return True
+                visited.add(new_position)
+                queue.append(new_position)
+    
+    return False
+
+def determine_winner(N, P, X, M):
+    """
+    Determine the winner of the game or if it's a draw.
+    """
+    # Steve starts first, so we only need to check if the target position is reachable
+    if can_reach_target(N, P, X, M):
+        return "Steve"
+    else:
+        return "Harvey"
+
+# Example usage
+N = 5
+P = 2
+X = 5
+M = 3
+
+print(determine_winner(N, P, X, M))
 
 
