@@ -426,5 +426,19 @@ X = 5
 M = 3
 
 print(determine_winner(N, P, X, M))
+#############################################################################
+#Q1356. Sort Integers by The Number of 1 Bits
+        arr.sort()
+        d={}
+        for i in arr:
+           count=bin(i).count('1')
+           if count not in d:
+             d[count]=[i]
+           else:
+             d[count].append(i)
+        res=[]
+        for i in sorted(d.keys()):
+           res.extend(d[i])
+        return res
 
 
