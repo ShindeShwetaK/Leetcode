@@ -426,6 +426,16 @@ X = 5
 M = 3
 
 print(determine_winner(N, P, X, M))
+#########################################################################
+#Q724. Find first pivot index
+          total=sum(nums)
+          leftsum=0
+          for i in range(len(nums)):
+            rightsum=total-nums[i]-leftsum
+            if leftsum==rightsum:
+                return i
+            leftsum+=nums[i]
+          return -1
 #############################################################################
 #Q1356. Sort Integers by The Number of 1 Bits
         arr.sort()
