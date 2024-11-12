@@ -226,3 +226,22 @@ class Solution:
                     size=0
             return result
 #######################################################################################
+#remove duplicate @26
+    def removeDuplicates(self, nums: List[int]) -> int:
+        new_array=[]
+        seen=set()
+        
+        for i in nums:
+            if i not in seen:
+                new_array.append(i)
+                seen.add(i)
+
+
+#######################################################################################
+#buy and sell problem Q122
+    def maxProfit(self, prices: List[int]) -> int:
+        sum = 0
+        for i in range(1,len(prices)): 
+            if prices[i] > prices[i-1]:
+                   sum += prices[i] - prices[i-1]
+        return sum
