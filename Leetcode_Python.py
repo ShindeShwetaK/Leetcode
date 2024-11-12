@@ -461,5 +461,11 @@ class Solution:
             nums.insert(0,nums[-1])
             nums.pop(-1)
             k-=1
+###########################################################################
+#Q136 Find unique in array
+    def singleNumber(self, nums: List[int]) -> int:
+        for i in nums:
+            if nums.count(i)==1:
+                return i
 
 
