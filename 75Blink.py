@@ -30,3 +30,34 @@ class Solution:
 
         return "".join(new_string)
 
+###################################################################
+#Q2. Find Greatest Substring.
+
+def gcdOfStrings(self, str1: str, str2: str) -> str:
+    def gdc(a ,b):
+        while b:
+            a , b = b , a % b
+        return a
+    return str1([ :gcd(len(str1), len(str2) ]) if str 2 +str1 == str1 + str2 else ''
+
+####################################################################
+#Q3. Extra Candies
+
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        candies_status = []
+        max_candy = max(candies)
+
+        for i in range(len(candies)):
+           count = candies[i] + extraCandies
+           if count >= max_candy:
+              candies_status.append(True)
+           else:
+              candies_status.append(False)
+
+        return candies_status
+
+###################################################################
+
+        
+    
+
