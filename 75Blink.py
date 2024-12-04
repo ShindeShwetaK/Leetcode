@@ -84,6 +84,39 @@ def gcdOfStrings(self, str1: str, str2: str) -> str:
                 s[left], s[right] = s[right], s[left]
                 left += 1
                 right -= 1
+####################################################################################################
+#Q6 Reverse the Strings
+     class Solution:
+    def reverseWords(self, s: str) -> str:
+        word = s.split()
+        reverse = []
+
+        for i in range(len(word)-1, -1, -1):
+            reverse.append(word[i])      
+            if i!=0:
+                reverse.append(" ") 
+
+        return "".join(reverse) 
+
+#########################################################################################
+#Q7 Product or arry without self
+        class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        product = [1] * n
+
+        prefix = 1
+        for i in range(n):
+            product[i] *= prefix
+            prefix *= nums[i]
+
+        suffix = 1
+        for i in range(n-1, -1, -1):
+            product[i] *= suffix
+            suffix *= nums[i]
+
+        return product
+############################################################################################
 
         return "".join(s)
         
