@@ -84,6 +84,7 @@ def gcdOfStrings(self, str1: str, str2: str) -> str:
                 s[left], s[right] = s[right], s[left]
                 left += 1
                 right -= 1
+            return "".join(s) 
 ####################################################################################################
 #Q6 Reverse the Strings
      class Solution:
@@ -117,8 +118,23 @@ def gcdOfStrings(self, str1: str, str2: str) -> str:
 
         return product
 ############################################################################################
-
-        return "".join(s)
+#Q8. 
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        first = float('inf')
+        second = float('inf')
+        
+        for num in nums:
+            if num <= first:
+                first = num
+            elif num <= second:
+                second = num
+            else:
+                return True
+        
+        return False
+###################################################################################
+        
         
     
 
