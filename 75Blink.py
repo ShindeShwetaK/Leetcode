@@ -178,7 +178,26 @@ class Solution:
            temp_list1 , temp_list2 = first.next, second.next
            first.next = second
            second.next = temp_list1
-           first , second =  temp_list1 , temp_list2                                                                                                                                                                                
+           first , second =  temp_list1 , temp_list2     
+
+######################################################################################
+####Q2095 Delete middle node####
+class Solution:
+    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head == None: return None
+        prev = ListNode(0)
+        prev.next = head
+        next_node = head
+        slow = prev
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        slow.next = slow.next.next
+        return prev.next
+
+######################################################################################
 
 
 
