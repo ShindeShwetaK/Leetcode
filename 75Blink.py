@@ -423,7 +423,7 @@ class Solution:
 
 ###################################################################
 # Q2390. Removing Stars From a String.
-#Using String
+#Using String Can give error of time limit exceeded
 class Solution:
     def removeStars(self, s: str) -> str:
         res = ""
@@ -469,6 +469,32 @@ class Solution:
                 res.append(a)
 
         return res
+        ##################################################################################
+###@394 Decode string 
+        stack = []
+        
+        for c in s:
+            if c != ']':
+                stack.append(c)
+            else:
+                # Step 1: Pop until we hit the '[' to get the encoded substring
+                st = ''
+                while stack and stack[-1] != '[':
+                    st = stack.pop() + st
+                
+                # Step 2: Pop the '['
+                stack.pop()
+                
+                # Step 3: Pop the number k (repeat count)
+                num = ''
+                while stack and stack[-1].isnumeric():
+                    num = stack.pop() + num
+                
+                # Step 4: Repeat the string 'st' k times and push it back to stack
+                stack.append(int(num)*st)
+        
+        # Step 5: Join everything in the stack and return the result
+        return ''.join(stack)
 
 
 
