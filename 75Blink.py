@@ -452,6 +452,24 @@ class Solution:
         #Convert the list into string and then return it
         return "".join(word)
 
+########################################################################
+#735 Asteroid Collision
+        res = []
+
+        for a in asteroids:
+
+            while res and a < 0 < res[-1]:
+                if -a > res[-1]:
+                    res.pop()
+                    continue
+                elif -a == res[-1]:
+                    res.pop()
+                break
+            else:
+                res.append(a)
+
+        return res
+
 
 
 
