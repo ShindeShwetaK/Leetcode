@@ -379,6 +379,78 @@ class Solution:
         
 
 ##############################################
+# Q # divided string
+class Solution:
+    def stringHash(self, s: str, k: int) -> str:
+        result = ""
+        n = len(s)
+
+        for i in range(0, n, k):
+            substring = s[i:i+k]
+
+            hash_sum = sum(ord(char) - ord('a') for char in substring)
+
+            hashed_char = hash_sum % 26
+
+            result += chr(hashed_char + ord('a'))
+        
+        return result
+##########################################################################################
+########Stack###########
+#Q20 Valid Parentheses
+class Solution:
+    def isValid(self, s: str) -> bool:
+        brackets_coll = {
+            ")" : "(",
+            "}" : "{",
+            "]" : "["        }
+        stack =[]
+
+        for i in s:
+            if i in brackets_coll:
+                if not stack:
+                    return False
+                top = stack.pop()
+                if brackets_coll[i] != top:
+                    return False
+            else:
+                stack.append(i)
+
+        if stack :
+            return False
+        else:
+            return True
+
+###################################################################
+# Q2390. Removing Stars From a String.
+#Using String
+class Solution:
+    def removeStars(self, s: str) -> str:
+        res = ""
+        i = 0
+        while i < len(s):
+            if s[i] == '*':  
+                res = res[:-1]  # Remove the last character from res
+                print(res,res[:-1])
+                i += 1 
+            else:
+                res += s[i]
+                i += 1
+        return res
+
+#Using Stack
+    def removeStars(self, s: str) -> str:
+        #Make a list in which you will add or remove the element
+        word=[]
+        #Iterate through the s until the end
+        for i in s:
+        #if * come while iteration pop the elements else append it to the list
+            if i=="*":
+                word.pop()
+            else:
+                word.append(i)
+        #Convert the list into string and then return it
+        return "".join(word)
 
 
 
