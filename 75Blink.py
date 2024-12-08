@@ -312,6 +312,39 @@ class Solution:
 
         return l >= r
 ###########################################################
+#############Hash Map######################
+#Q 49 Anagram problem
+from collections import defaultdict
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        anagram = defaultdict(list)
+        return_result = []
+
+        for s in strs:
+            sort_s = tuple(sorted(s))
+            anagram[sort_s].append(s)
+
+        for i in anagram.values():
+            return_result.append(i)
+
+        return return_result
+
+###########################################################
+#Q2215. Find diff of two array
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        num1 = set(nums1)
+        num2 = set(nums2)
+
+        unique_nums1 = num1 - num2
+        unique_nums2 = num2 - num1
+
+        return [list(unique_nums1),list(unique_nums2)]
+
+##########################################################
+
+
+
 
 
 
