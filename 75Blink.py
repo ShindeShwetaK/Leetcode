@@ -282,6 +282,37 @@ class Solution:
 
         return res.next
     #########################################################################
+#Q203 Remove the given val from LL
+class Solution:
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        main = ListNode(0, head)
+        helper = main
+
+        while helper:
+            while helper.next and helper.next.val == val:
+                helper.next = helper.next.next
+            helper = helper.next
+
+        return main.next
+
+###############################################################
+#Q234 Palindrom
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        list_vals = []
+        while head:
+            list_vals.append(head.val)
+            head = head.next
+
+        l, r =0, len(list_vals)-1
+
+        while l < r and list_vals[l] == list_vals[r]:
+            l += 1
+            r -= 1
+
+        return l >= r
+###########################################################
+
 
 
 
