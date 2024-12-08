@@ -577,6 +577,56 @@ class Solution:
 
         return r - l+1
 ############################################
+#Q 219 Cointains duplicate at K
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        seen = {}
+
+        for i, val in enumerate(nums):
+            if val in seen and i -seen[val] <= k:
+                return True
+            else:
+                seen[val] = i
+
+        return False
+#############################################
+#Q340 Longest substring 
+class Solution:
+    def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
+        win_len = 0
+        start = 0
+
+        for i in range(len(s)):
+            if (len(set(s[start:i+1]))) <= k:
+                win_len = max(win_len , len(s[start:i+1]))
+            else :
+                start +=1
+
+        return win_len
+###################################################################
+#Q187 Repeating DNA
+class Solution:
+    def findRepeatedDnaSequences(self, s: str) -> List[str]:
+        set1 = set()
+        set2 = set()
+
+        p0 = 0
+        p1 = 10
+        while p1 <= len(s):
+
+            if s[p0:p1] in set1:
+                set2.add(s[p0:p1])
+            else:
+                set1.add(s[p0:p1])
+            
+            p0+=1
+            p1+=1
+
+        return list(set2)
+
+##################################################################
+
+
 
 
 
