@@ -245,3 +245,56 @@ class Solution:
             if prices[i] > prices[i-1]:
                    sum += prices[i] - prices[i-1]
         return sum
+
+#########################################################################
+#Q 283 Move the zeros
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        left = 0
+
+        for right in range(len(nums)):
+            if nums[right] !=0 :
+                nums[right] , nums[left] = nums[left], nums[right]
+                left +=1
+
+#######################################################################
+#Q392 IS subsequence
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        sc = tc = 0
+
+        while sc < len(s) and tc < len(t):
+            if s[sc] == t[tc]:
+                sc += 1
+            tc += 1
+
+
+        return sc == len(s)
+###################################################################
+#Q1679 max Num of sum k
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        l, r = 0, len(nums)-1
+        sum_num = 0
+        counter = 0   
+        
+        while l<r:   
+            sum_num = nums[l] + nums[r]
+            if sum_num == k:
+                counter += 1
+                l += 1
+                r -= 1
+            elif sum_num < k:
+                l += 1
+            else:
+                r -= 1
+
+        return counter 
+
+############################################################
+
+
