@@ -198,6 +198,48 @@ class Solution:
         return prev.next
 
 ######################################################################################
+###Q206 Reverse the LL
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head == None: return None
+
+        prev = None
+        current = head
+        while current:
+            next_node = current.next
+            current.next = prev
+            prev = current
+            current = next_node
+
+        return prev
+
+############################################################################################
+##Q2130 Max Sum for LL
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        slow , fast = head, head
+        maxVal = 0
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        prev = None
+        while slow:
+            next_node = slow.next
+            slow.next = prev
+            prev = slow
+            slow = next_node
+        
+        while prev:
+            maxVal = max(maxVal, head.val + prev.val)
+            head = head.next
+            prev = prev.next
+
+        return maxVal
+
+####################################################################################
+
 
 
 
