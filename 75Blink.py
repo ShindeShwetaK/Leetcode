@@ -530,6 +530,54 @@ class Solution:
                     record.append(record[-1] + record[-2])        
         return sum(record)
 
+#############################################################################
+##Sliding Window##########################
+#Q643. Max_avg Substring
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        avg_sum = sum(nums[:k])
+        max_avg = avg_sum / k
+        for i in range(k, len(nums)):
+            avg_sum = avg_sum + nums[i] - nums[i-k]
+            max_avg = max(max_avg, avg_sum/k)
+
+        return max_avg
+########################################################
+#Q1456 Max number of Vowels in substr
+        vowel = 0 
+        for i in range(k):
+            if s[i] in "aeiou":
+                vowel += 1
+        max_v = vowel
+
+        for i in range(k,len(s)):
+            if s[i] in "aeiou":
+                vowel += 1
+            if s[i-k] in "aeiou":
+                vowel -= 1
+            max_v = max(max_v, vowel)
+
+        return max_v
+
+#################################################
+#Q1004 Max consecutive 1
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        l =  0
+
+        for r in range(len(nums)):
+            if nums[r] == 0:
+                k -= 1
+
+            if k<0:
+                if nums[l] == 0:
+                    k += 1
+
+                l +=1
+
+        return r - l+1
+############################################
+
 
 
 
