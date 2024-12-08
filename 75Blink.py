@@ -342,6 +342,23 @@ class Solution:
         return [list(unique_nums1),list(unique_nums2)]
 
 ##########################################################
+#Q1207. Unique number of occurence
+from collections import Counter
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        count_num = Counter(arr)
+
+        duplicate = set()
+        for i in count_num.values():
+            if i in duplicate:
+                return False
+            else:
+                duplicate.add(i)
+        
+        return True
+
+#######################################################
+
 
 
 
