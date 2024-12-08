@@ -495,6 +495,41 @@ class Solution:
         
         # Step 5: Join everything in the stack and return the result
         return ''.join(stack)
+##############################################################################
+#Q.71 Simplify Path
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        dirFiles = []
+        path = path.split("/")
+        for i in path:
+            if dirFiles and i == ".." :
+                dirFiles.pop()
+            elif i not in [".","",".."]:
+                dirFiles.append(i)
+
+        return "/" + "/".join(dirFiles)
+
+
+If path = "/home//foo/" and you apply path.split("/"), the output will be: ['', 'home', '', 'foo', '']
+###############################################################################
+#Q Baseball Game.
+class Solution:
+    def calPoints(self, operations: List[str]) -> int:
+        record = []
+        for i in operations:
+            if i.isdigit() or (i.startswith('-') and i[1:].isdigit()):
+                record.append(int(i))
+            elif i == "C":
+                if record:
+                    record.pop()
+            elif i == "D":
+                if record:
+                    record.append(record[-1]*2)
+            elif i == "+":
+                if len(record) >= 2:
+                    record.append(record[-1] + record[-2])        
+        return sum(record)
+
 
 
 
