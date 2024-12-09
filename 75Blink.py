@@ -674,7 +674,63 @@ class MyQueue:
     def empty(self) -> bool:
         return len(self.q) == 0
 ######################################################################
+#Q281 ZigZag Iterator
+class ZigzagIterator:
+    def __init__(self, v1: List[int], v2: List[int]):
+        self.d = deque()
+        if v1:
+            self.d.append((0,v1))
+        if v2:
+            self.d.append((0,v2))
+ 
+        
 
+    def next(self) -> int:
+        i, v = self.d.popleft()
+        res = v[i]
+        i += 1
+        if i < len(v):
+            self.d.append((i, v))
+        return res
+#################################################################################
+#933. Number of Recent Calls
+class RecentCounter:
+
+    def __init__(self):
+        self.queue = deque()
+        self.count = 0
+        
+
+    def ping(self, t: int) -> int:
+        self.queue.append(t)
+        self.count += 1
+
+        while self.queue[0] < t-3000:
+            self.queue.popleft()
+            self.count -= 1
+
+        return self.count
+##############################################
+#1352. Product of the Last K Numbers
+class ProductOfNumbers:
+
+    def __init__(self):
+        self.product = [1]
+
+        
+
+    def add(self, num: int) -> None:
+        if num == 0:
+            self.product = [1]
+        else:
+            self.product.append(self.product[-1] * num)
+        
+
+    def getProduct(self, k: int) -> int:
+        if k >= len(self.product):
+            return 0
+        else:
+            return self.product[-1] // self.product[-1-k]
 
 
 
