@@ -625,6 +625,33 @@ class Solution:
         return list(set2)
 
 ##################################################################
+#Q1732 Prefix Problem
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        altitude = [0]
+
+        for i in range(len(gain)):
+            altitude.append(altitude[i] + gain[i])
+
+        return max(altitude)
+#################################################################
+#Q724 Pivorting Index
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        total = sum(nums)
+        left_total = 0
+
+        for i in range(len(nums)):
+            right_total = total - left_total-nums[i]
+
+            if right_total == left_total:
+                return i
+            
+            left_total += nums[i]
+
+        return -1
+
+###################################################################
 
 
 
