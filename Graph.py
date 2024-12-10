@@ -64,3 +64,89 @@ class Solution:
             return False
             
         return mirror(root.left , root.right)
+
+######################################################
+#102. Binary Tree Level Order Traversal
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        res = []
+        q = collections.deque()
+        q.append(root)
+        while q:
+            q_len = len(q)
+            level = []
+            for i in range(q_len):
+                node = q.popleft()
+                if node is not None:
+                    level.append(node.val)
+                    q.append(node.left)
+                    q.append(node.right)
+            if level:
+                res.append(level)
+        return res
+
+############################################################
+#111. Minimum Depth of Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        if not root.left:
+            return self.minDepth(root.right)+1
+
+        if not root.right:
+            return self.minDepth(root.left)+1
+
+        if not root.left and root.right:
+            return 1
+
+        return 1+ min(self.minDepth(root.left), self.minDepth(root.right))
+
+##################################################################
+#Q Sum of left leaves
+class Solution:
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        leftsum = 0
+
+        if root.left and not root.left.left and not root.left.right:
+            leftsum += root.left.val
+
+        leftsum += self.sumOfLeftLeaves(root.left)
+        leftsum += self.sumOfLeftLeaves(root.right)
+
+        return leftsum
+        ##########################################################
+#Iland problem
+def islandPerimeter(grid):
+    rows, cols = len(grid), len(grid[0])
+    perimeter = 0
+
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i][j] == 1:  # Land cell
+                # Start with 4 edges for this cell
+                perimeter += 4
+
+                # Check for neighbors and subtract shared edges
+                if i > 0 and grid[i-1][j] == 1:  # Up neighbor
+                    perimeter -= 1
+                if i < rows - 1 and grid[i+1][j] == 1:  # Down neighbor
+                    perimeter -= 1
+                if j > 0 and grid[i][j-1] == 1:  # Left neighbor
+                    perimeter -= 1
+                if j < cols - 1 and grid[i][j+1] == 1:  # Right neighbor
+                    perimeter -= 1
+
+    return perimeter
+        
+        
