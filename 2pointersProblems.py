@@ -239,12 +239,19 @@ class Solution:
 
 #######################################################################################
 #buy and sell problem Q122
-    def maxProfit(self, prices: List[int]) -> int:
-        sum = 0
-        for i in range(1,len(prices)): 
-            if prices[i] > prices[i-1]:
-                   sum += prices[i] - prices[i-1]
-        return sum
+        max_profit = 0
+        min_profit = float('inf')
+
+        for i in prices:
+            if i < min_profit:
+                min_profit = i
+            
+            profit = i - min_profit
+
+            if profit > max_profit:
+                max_profit = profit
+
+        return max_profit
 
 #########################################################################
 #Q 283 Move the zeros
