@@ -830,6 +830,36 @@ class Solution:
                 root.right = self.deleteNode(root.right, temp.val)
         return root
 
+###########################################################################
+#Q268 missing numbers
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        max_n = max(nums)
+        nums.sort()
+
+        if nums[0]!=0:
+            return 0
+
+        for i in range(1,len(nums)):
+            if nums[i] - nums[i - 1] > 1:
+                return nums[i] - 1
+
+        return max_n + 1
+
+#or
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        max_n = max(nums)
+        nums.sort()
+
+        for i in range(len(nums)):
+            if i != nums[i]:
+                return i
+
+        return max_n + 1
+    ####################################################################
+
+
 
 
 
