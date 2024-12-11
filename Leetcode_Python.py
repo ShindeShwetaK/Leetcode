@@ -475,6 +475,165 @@ class Solution:
         arr.sort(key = lambda x:(bin(x).count("1"),x))
         return arr
 #########################################################################
+#28 Find index of fisrt occurance of the string
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        l = len(needle)
+        for i in range(len(haystack)):
+            if haystack[i:l] == needle:
+                return i
+            l += 1
+        return -1
+###############################################################
+#Q69 Sqrt
+    def mySqrt(self, x: int) -> int:
+        if x == 0:
+           return 0
+
+        l, r = 1,x
+        while l<=r:
+            mid = (l + r) // 2
+            if mid * mid == x:
+                return mid
+            elif mid * mid > x:
+                r = mid - 1
+            else:
+                l = mid + 1
+        return r
+##########################################################################
+#Q67 Add Binary
+    def addBinary(self, a: str, b: str) -> str:
+        s = []
+        ind_a = len(a) - 1
+        ind_b = len(b) - 1
+        carry = 0
+
+        while ind_a>=0 or ind_b>=0 or carry:
+            if ind_a>=0:
+                carry += int(a[ind_a])
+                ind_a -= 1
+
+            if ind_b>=0:
+                carry += int(b[ind_b])
+                ind_b -= 1
+
+            s.append(str(carry % 2))
+            carry //= 2
+
+        return ''.join(reversed(s))
+
+###############################################################################################
+#70 Climbing
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        dp = [0] * (n+1)
+        dp[0] = 1
+        dp[1] = 1
+
+        for i in range(2, n+1):
+            dp[i] = dp[i-1] + dp[i-2]
+
+        return dp[-1]
+#################################################
+#Q Valid Anagram
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s)!=len(t):
+            return False
+
+        list1 = []
+        for i in range(len(s)):
+            list1.append(s[i])
+        list1.sort()
+        
+        list2 = []
+        for i in range(len(t)):
+            list2.append(t[i])
+        list2.sort()
+
+        if list1 == list2:
+            return True
+        else:
+            return False
+##################################################
+#412 Fizzbizz
+class Solution:
+    def fizzBuzz(self, n: int) -> List[str]:
+         output = []
+         for i in range(1,n+1):
+            if i % 3 == 0 and i % 5 == 0:
+                output.append("FizzBuzz")
+            elif i % 3 == 0:
+                output.append("Fizz")
+            elif i % 5 == 0:
+                output.append("Buzz")
+            else:
+                output.append(str(i))
+###################################################
+#519 Fibonaci Number
+class Solution:
+    def fib(self, n: int) -> int:
+        if n<=1:
+            return n
+        
+        a, b = 0, 1
+        for i in range(2, n+1):
+            a, b = b ,a+b
+        return b
+#######################################
+#Q1455 Chcek if the work occurs in the sentence
+class Solution:
+    def isPrefixOfWord(self, sentence: str, searchWord: str) -> int:
+
+        sentence_list = sentence.split()
+
+        for i in range(len(sentence_list)):
+            if sentence_list[i].startswith(searchWord):
+                return i + 1
+
+        return -1
+######################################
+#Q1603 Parking
+class ParkingSystem:
+
+    def __init__(self, big: int, medium: int, small: int):
+        self.slot = {
+            1:big,
+            2:medium,
+            3:small
+        }
+        
+
+    def addCar(self, carType: int) -> bool:
+        if not self.slot.get(carType):
+            return False
+
+        self.slot[carType] -= 1
+
+        return True
+##########################################
+#Q3349 Adj inc substr
+class Solution:
+    def hasIncreasingSubarrays(self, nums: List[int], k: int) -> bool:
+
+        dp = [1] * len(nums)
+
+        for i in range(1, len(nums)):
+
+            if nums[i] > nums[i-1]:
+                dp[i] = dp[i-1] + 1
+            else:
+                dp[i] = 1
+        
+        lp = 0
+
+        for j in range(k, len(nums)):
+            if dp[lp] >= k and dp[j] >= k:
+                return True
+            lp += 1
+        
+        return False
+
 
 
 
