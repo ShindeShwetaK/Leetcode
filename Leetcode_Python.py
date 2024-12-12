@@ -669,6 +669,34 @@ class Solution:
 
         dfs(0 ,0 ,"")
         return result
+##############################################
+#Q Number of jumps
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        goal = len(nums) -1
+
+        for i in range(len(nums)-2, -1, -1):
+            if i + nums[i] >= goal:
+                goal = i
+        
+        return goal == 0
+##################################################
+#Q Kth largent element
+import heapq
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        if k>len(nums):
+            return nums
+
+        q = nums[:k]
+        heapq.heapify(q)
+        for i in range(k, len(nums)):
+            if nums[i] > q[0]:
+                heapq.heappush(q, nums[i])
+                heapq.heappop(q)
+        
+        return heapq.heappop(q)
+########################################################
 
 
 
