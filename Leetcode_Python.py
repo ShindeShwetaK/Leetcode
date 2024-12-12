@@ -634,6 +634,43 @@ class Solution:
         
         return False
 
+###################################
+#Q347 K most common elemet
+from collections import Counter
+class Solution:
+    def topKFrequent1(nums, k):
+        count_freq = Counter(nums)
+        result = []
+        most_common = count_freq.most_common(k)
+        print(most_common)
+        for item, value in most_common:
+          result.append(item)
+        #result = [item for item, _ in most_common]
+        return result
+##################################
+#Q Generate paranthesis
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        result = []
+
+        def dfs(open, close , s):
+            if open == close and open + close == n * 2:
+                result.append(s)
+                return result
+
+            if open < n:
+                print(open,close)
+                print(dfs(open+1, close, s+"("))
+
+            if close < open:
+                print(open,close,"hello")
+                print(dfs(open, close+1, s+")"))
+
+
+        dfs(0 ,0 ,"")
+        return result
+
+
 
 
 
