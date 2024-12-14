@@ -103,6 +103,21 @@ for i in strs[0]:
     else:
          break
     print (res)
+
+        class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        pref = strs[0]
+        pref_len = len(pref)
+
+        for s in strs[1:]:
+            while pref != s[0:pref_len]:
+                pref_len -= 1
+                if pref_len == 0:
+                    return ""
+                
+                pref = pref[0:pref_len]
+        
+        return pref
   ##############################################################
   #Q20.Validate paranthesis
   #https://leetcode.com/problems/valid-parentheses/description/
@@ -168,6 +183,32 @@ class Solution:
         for i in anagrams_list.values():
             result.append(i)
         return result
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        anagram = {}
+
+        for s in strs:
+            sort_s = ''.join(sorted(s))
+            print(anagram)
+            if sort_s in anagram:
+                anagram[sort_s].append(s)
+            else:
+                anagram[sort_s] = [s]
+
+
+        return list(anagram.values())
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        anagram = defaultdict(list)
+
+        for s in strs:
+            sort_s = ''.join(sorted(s))
+            anagram[sort_s].append(s)
+
+        return list(anagram.values())
+
 
 #####################################################################
 #Q26.Remove dulipcates from a sorted list
