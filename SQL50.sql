@@ -69,6 +69,41 @@ a.activity_type='start' and
 b.activity_type='end'
 group by a.machine_id;
 
+SELECT 
+    machine_id,
+    ROUND(SUM(CASE WHEN activity_type='start' THEN timestamp*-1 ELSE timestamp END)*1.0
+    / (SELECT COUNT(DISTINCT process_id)),3) AS processing_time
+FROM 
+    Activity
+GROUP BY machine_id
+
+WITH ProcessTimes AS (
+    SELECT 
+        a.machine_id,
+        a.process_id,
+        MAX(CASE WHEN a.activity_type = 'start' THEN a.timestamp END) AS start_time,
+        MAX(CASE WHEN a.activity_type = 'end' THEN a.timestamp END) AS end_time
+    FROM 
+        Activity a
+    GROUP BY 
+        a.machine_id,
+        a.process_id
+),
+Durations AS (
+    SELECT 
+        machine_id,
+        (end_time - start_time) AS duration
+    FROM 
+        ProcessTimes
+)
+SELECT 
+    machine_id,
+    ROUND(AVG(duration), 3) AS processing_time
+FROM 
+    Durations
+GROUP BY 
+    machine_id;
+
 #################################################
 
 11) --emp bonus<100
