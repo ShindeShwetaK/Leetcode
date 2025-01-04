@@ -133,6 +133,26 @@ for i in strs[0]:
            return False
        else:
            return True
+
+#Or
+   Brackets = { ")" : "(",  "]" : "[", "}" : "{"}
+   stack = []
+   for i in s:
+	   if i in brackets:
+		   if not stack:
+			   return False
+		   top = stack.pop()
+		   if top != brackets[i]:
+			   return False
+	   else:
+		   stack.append(i)
+
+  if stack:
+	  return False
+  else:
+	  return True
+
+
 #####################################################################
 #Q33. Search in rotated sorted array
 class Solution:
