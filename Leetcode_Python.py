@@ -28,26 +28,15 @@ print(addnumbers(L1,L2))
 #Solution without converting to string
 #https://leetcode.com/problems/palindrome-number/
 def isPalindrome(x):
-        """
-        :type x: int
-        :rtype: bool
-        """
-        x1=x
-        if x1>=0:
-            Reverse=0
-            digit=0
-            while x1!=0:
-                digit=x1 % 10
-                Reverse=Reverse*10+digit
-                x1//=10
-            if x==Reverse:
-                #print(True)
-                return(True)
-            else:
-                #print(False)
-                return(False)
-        else:
-            return(False)
+if x<0:
+   return False
+
+reverse = 0
+xcopy = x
+while x > 0:
+	reverse = ( reverse *10 ) + ( x % 10 )
+	x // = 10
+return reverse == xcopy
 
   #Palandrom solev using str
 def isPalindromestr(x):
@@ -738,6 +727,55 @@ class Solution:
         
         return heapq.heappop(q)
 ########################################################
+#Q2 Add 2 numbes in linkedlist
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        
+        dummy = ListNode()
+        res = dummy
+
+        total = carry = 0
+
+        while l1 or l2 or carry:
+            total = carry
+
+            if l1:
+                total += l1.val
+                l1 = l1.next
+                print(total)
+        
+            if l2:
+                total += l2.val
+                l2 = l2.next
+                print(total,"l2")
+            
+            num = total % 10
+            carry = total // 10
+            print(num,carry)
+            dummy.next = ListNode(num)
+            dummy = dummy.next
+        
+        return res.next
+#######################################################################
+#35.Sreach Insert Position
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        left = 0
+        right = len(nums) - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            if nums[mid] == target:
+                return mid
+            
+            elif nums[mid] > target:
+                right = mid - 1
+
+            else:
+                left = mid + 1
+
+        return left
 
 
 
