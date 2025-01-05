@@ -110,6 +110,16 @@ print(new)
                        l+=1
                        r-=1
         return new
+################################################################
+#Rob the house
+        prev_rob = max_rob = 0
+
+        for curr_val in nums:
+            temp = max(max_rob, prev_rob + curr_val)
+            prev_rob = max_rob
+            max_rob = temp
+
+        return max_rob
 ####################################################################################
 #Q75 Sorting the colors in place
 
