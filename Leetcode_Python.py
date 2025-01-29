@@ -797,7 +797,7 @@ class Solution:
 
         return left
 ############################################################
-#Q Remove duplicate II
+#Q80 Remove duplicate II
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
         j = 2
@@ -806,6 +806,30 @@ class Solution:
                 nums[j] = nums[i]
                 j += 1
         return j
+#################################################
+#Q169 Maximum occurance
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        count_nums = {}
+        max_value = 0
+        majority = None
+        for i in nums:
+            if i not in count_nums:
+                count_nums[i] = 1
+            else:
+                count_nums[i] += 1
+        
+        max_heap = [(-value, key)for key,value in count_nums.items()]
+
+        heapq.heapify(max_heap)
+        return max_heap[0][1]
+
+        #for key,value in count_nums.items():
+            #if value > max_value:
+                #max_value = value
+                #majority = key
+
+        #return majority
 
 
 
