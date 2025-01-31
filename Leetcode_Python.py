@@ -830,6 +830,20 @@ class Solution:
                 #majority = key
 
         #return majority
+#########################################################
+#Q45 Jump II
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+
+        jumps, currentEnd, fasthest = 0, 0, 0
+        for i in range(len(nums)-1):
+            fasthest = max(fasthest, i + nums[i])
+            if i == currentEnd:
+                jumps += 1
+                currentEnd = fasthest
+
+        
+        return jumps
 
 
 
