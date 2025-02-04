@@ -844,6 +844,19 @@ class Solution:
 
         
         return jumps
+##########################################################
+#q274. H-Index
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        n = len(citations)
+        citations.sort()
+
+        for i, c in enumerate(citations):
+            if c >= n - i:
+                return n - i
+
+        return 0
+
 
 
 
