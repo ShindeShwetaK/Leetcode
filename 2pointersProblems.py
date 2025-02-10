@@ -335,6 +335,84 @@ class Solution:
             j -= 1
             k -= 1
 ################################################################
+#209. Minimum Size Subarray Sum
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        l = 0
+        cursum = 0
+        result = len(nums) + 1
+
+
+        for r, n in enumerate(nums):
+            cursum += n
+            while cursum >=target:
+                result = min(result, r-l+1)
+                cursum -= nums[l]
+                l += 1
+
+       return res % (len(nums) +1)
+##################################################################
+#290 Word Pattern
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        pattern = list(pattern)
+        s=s.split()
+        word = {}
+
+        if len(pattern) != len(s):
+            return False
+
+       if len(set(pattern)) != len(set(s)):
+           return False
+
+       for i in range(len(s)):
+           if s[i] not in words:
+               words[s[i]] = pattern[i]
+           else:
+               if words[s[i]] != pattern[i]:
+                   return False
+
+       return True
+#######################################################
+#Q242. Valid Anagram
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s)!=len(t):
+            return False
+
+        ##list1 = ''.join(sorted(s))
+        ##list2 = ''.join(sorted(t))
+
+        #for i in range(len(s)):
+           # list1.append(s[i])
+        #list1.sort()
+        
+       # list2 = []
+       # for i in range(len(t)):
+            #list2.append(t[i])
+        #list2.sort()
+
+        ##return list1 == list2
+
+        counter = {}
+
+        for i in range(len(s)):
+            if s[i] not in counter:
+                counter[s[i]] = 1
+            else:
+                counter[s[i]] += 1
+
+        for i in range(len(t)):
+            if t[i] not in counter or counter[t[i]] <= 0:
+                return False
+            counter[t[i]] -= 1
+
+        return True
+
+
+
+
+
 
 
 
