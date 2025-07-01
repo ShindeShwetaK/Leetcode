@@ -178,7 +178,86 @@ class Solution:
            temp_list1 , temp_list2 = first.next, second.next
            first.next = second
            second.next = temp_list1
-           first , second =  temp_list1 , temp_list2     
+           first , second =  temp_list1 , temp_list2  
+
+####################################################################################
+####Define Single LL
+class Node:
+    def __init__(self, data):
+        self.data = data  # Value of the node
+        self.next = None  # Pointer to the next node
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        """Add a node to the end of the list."""
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
+
+    def insert(self, index, data):
+        """Insert a node at a specific position."""
+        new_node = Node(data)
+        if index == 0:
+            new_node.next = self.head
+            self.head = new_node
+            return
+
+        current = self.head
+        count = 0
+        while current and count < index - 1:
+            current = current.next
+            count += 1
+
+        if not current:
+            raise IndexError("Index out of range")
+
+        new_node.next = current.next
+        current.next = new_node
+
+    def delete(self, key):
+        """Delete the first node with the given value."""
+        current = self.head
+
+        if current and current.data == key:
+            self.head = current.next
+            return
+
+        prev = None
+        while current and current.data != key:
+            prev = current
+            current = current.next
+
+        if current:
+            prev.next = current.next
+        else:
+            raise ValueError("Value not found in list")
+
+    def display(self):
+        """Print all elements in the list."""
+        elements = []
+        current = self.head
+        while current:
+            elements.append(current.data)
+            current = current.next
+        print(" -> ".join(map(str, elements)))
+
+ll = SinglyLinkedList()
+ll.append(10)
+ll.append(20)
+ll.insert(1, 15)
+ll.display()  # Output: 10 -> 15 -> 20
+ll.delete(15)
+ll.display()  # Output: 10 -> 20
+
 
 ######################################################################################
 ####Q2095 Delete middle node####
