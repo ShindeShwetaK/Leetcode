@@ -109,6 +109,8 @@ sorting has time complexity o(nlogn)
         
         return pref
 	no sorting so time complexity of o(m *n)
+	    n = no. of string
+	    m = len of the shortest string
   ##############################################################
   #Q20.Validate paranthesis
   #https://leetcode.com/problems/valid-parentheses/description/
