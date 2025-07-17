@@ -917,7 +917,28 @@ class Solution:
                 right -= 1
             else:
                 left +=1
+##########################################################
+element that appers max number of times.
+def mostFrequent(nums):
+    count = {}
 
+    # Count frequency of each element
+    for i in nums:
+        if i in count:
+            count[i] += 1
+        else:
+            count[i] = 1
+
+    # Find the element with maximum frequency
+    max_freq = 0
+    max_elem = None
+
+    for key, value in count.items():
+        if value > max_freq:
+            max_freq = value
+            max_elem = key
+
+    return max_elem
 
 
 
