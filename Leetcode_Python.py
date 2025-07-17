@@ -92,6 +92,7 @@ for i in strs[0]:
     else:
          break
     print (res)
+sorting has time complexity o(nlogn)
 
         class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
@@ -107,6 +108,7 @@ for i in strs[0]:
                 pref = pref[0:pref_len]
         
         return pref
+	no sorting so time complexity of o(m *n)
   ##############################################################
   #Q20.Validate paranthesis
   #https://leetcode.com/problems/valid-parentheses/description/
