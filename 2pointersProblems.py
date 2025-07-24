@@ -28,6 +28,14 @@ def twoSum(nums,target):
                 if nums[i]+nums[j] == target:
                     return [i,j]
         return []
+    or
+
+        pair_idx = {}
+
+        for i, num in enumerate(nums):
+            if target - num in pair_idx:
+                return [i, pair_idx[target - num]]
+            pair_idx[num] = i
 ###########################################################################
 #Q11. Container with most water
 #https://leetcode.com/problems/container-with-most-water/
