@@ -40,4 +40,43 @@ class Solution:
            return s[l:r] == s[l:r][::1] or s[l+1:r+1] == s[l+1:r+1][::1]
       return True
       ----------------------------------------------------------
-      
+199. Binary Tree Right Side View
+res = []
+
+q = deque()
+q.append(root)
+
+while q:
+    right_side = None
+    for _ in range(len(q)):
+        node = leftpop()
+        if node:
+            right_side = node
+            q.append(node.left)
+            q.appen(node.right)
+    if right_side:
+        res.append(right_side)
+return res
+----------------------------------------
+215. Kth Largest Element in an Array
+q = nums[:k]
+heap.heapify(q)
+
+for i in range(k,len(nums)):
+    if num[i] > q[0]:
+        heapq.heappush(q,nums[i])
+        healq.heappop(q)
+return heap.heappop(q)
+
+-------------------------------------
+71. Simplify Path
+dirfiles = []
+path = path.split("/")
+
+for i in path:
+    if dirfile and i == "..":
+        dirfile.pop()
+    if i not in [".","..",""]:
+        dirfiles.append(i)
+
+return "/" + "/".join(dirfiles)
