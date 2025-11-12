@@ -80,3 +80,103 @@ for i in path:
         dirfiles.append(i)
 
 return "/" + "/".join(dirfiles)
+-------------------------------------
+1 2 sum
+
+for i in range(0, len(num)):
+    for j in range(i+1,len(nums)):
+        if nums[i] +num[j] = target:
+            return [i,j]
+
+d ={}
+for i , n in enumerate(nums):
+    diff = target - n 
+    if diff in d:
+        return [d[diff, i]
+    d[n] = i
+
+-------------------------------
+1249.Minimum Remove to Make Valid Parentheses
+
+open = 0
+bal = 0
+
+char_list = []
+for char in s:
+    if char == "(":
+        open += 1
+        bal += 1
+    if char == ")":
+        if bal == 0:
+            continue
+        bal -= 1
+    char_list.append(char)
+
+total_open = open - bal
+
+result = []
+
+for char in char_list:
+    if char == "(":
+        total_open -= 1
+        if total_open < 0:
+            continue
+    result.append(char)
+
+returb result
+-----------------------------------
+347. Top K Frequent Elements
+counter = {}
+for i in nums:
+    if i in counter:
+        counter[i] += 1
+    else:
+        counter[i] = 1
+
+heap = []
+for key, val in counter.iteam():
+    heapq.heappush(heap,(-val,key))
+
+res = []
+while len(res) < k:
+    res.append(heapq.heappop(heap)[1])
+return res
+
+-----------------------------------
+def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+    self.ans = 0
+    def dfs(self.node) -> int:
+        if not node:
+            return -1
+        lh = dfs(node.left) + 1
+        rh = dfs(node.right) + 1
+        self.ans = max(self.ans, lh+rh)
+        return max(lh,rh)
+
+    dfs(root)
+    return self.ans
+----------------------------------
+Subarray sum equals
+count = 0
+for i in range(len(nums)):
+    total = 0 
+    for j in range(i,len(nums)):
+        total += nums[j]
+        if total == k:
+            count += 1
+return count
+or
+count = 0
+prefix = 0
+feq = {O:1}
+
+for i in nums:
+    prefix += i
+    if prefix - k in feq:
+        count += feq[prefix - k]
+    if prefix in feq:
+        feq[prefix] += 1
+    else:
+        feq[prefix] = 1
+return count
+        
