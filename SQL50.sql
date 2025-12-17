@@ -57,6 +57,32 @@ GROUP BY customer_id
 9)--Rising Temprature
 select w1.id from weather w1 join weather w2 on (DATEDIFF(w1.recordDate,w2.recordDate) = 1) where w1.temperature > w2.temperature;
 
+--With laG
+SELECT id
+FROM (
+    SELECT
+        id,
+        recordDate,
+        temperature,
+        LAG(temperature) OVER (ORDER BY recordDate) AS prev_temp,
+        LAG(recordDate) OVER (ORDER BY recordDate) AS prev_date
+    FROM weather
+) t
+WHERE
+    DATEDIFF(recordDate, prev_date) = 1
+    AND temperature > prev_temp;
+
+--If dates are guaranteed to be consecutive
+SELECT id
+FROM (
+    SELECT
+        id,
+        temperature,
+        LAG(temperature) OVER (ORDER BY recordDate) AS prev_temp
+    FROM weather
+) t
+WHERE temperature > prev_temp;
+
 #################################################
 
 10)-- Average Time of Process per Machine
