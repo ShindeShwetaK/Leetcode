@@ -31,6 +31,41 @@ class Solution:
 
 --------------------------------------------------------
 
+973. K Closest Points to Origin
+
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        distance = {}
+        for i, num in enumerate(points):
+            dist = ((num[0])**2+(num[1]**2))
+            distance[i] = dist
+
+        final = heapq.nsmallest(k, distance.items(), key = lambda x:x[1])
+        return [point[i] for i, _ in final]
+
+-----------------------------------------------------------------------------
+56. Merge Intervals
+
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        merged = []
+        intervals.sort()
+        prev = intervals[0]
+
+        for i in range(1, len(intervals)):
+            if prev[1] >= intervals[i][0]:
+                prev[1] = max(intervals[i][1], prev[1])
+
+            else:
+                merged.append(prev)
+                prev = intervals[i]
+
+        merged.append(prev)
+        return merged
+
+-------------------------------------------------------------
+
+
 
 
 
