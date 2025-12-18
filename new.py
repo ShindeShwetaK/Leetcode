@@ -64,6 +64,27 @@ class Solution:
         return merged
 
 -------------------------------------------------------------
+560. Subarray Sum Equals K
+
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        count = 0
+        feq = {0:1}
+        prefix =0 
+
+        for i in nums:
+            prefix += i
+            if prefix -k  in feq:
+                count += feq[prefix -k]
+            if prefix in feq:
+                feq[prefix] += 1
+            else:
+                feq[prefix] = 1
+
+        return count
+
+-----------------------------------------------------------------
+
 
 
 
