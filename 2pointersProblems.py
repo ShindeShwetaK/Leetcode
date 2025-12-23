@@ -428,6 +428,73 @@ class Solution:
             counter[t[i]] -= 1
 
         return True
+########################################################
+125. Valid Palindrome
+ss = "".join(c.lower() for c in s if c.isalnum())
+
+l = 0
+r = len(ss) -1
+
+while l < r:
+    if ss[l] == ss[r]:
+        l += 1
+        r -= 1
+    else:
+        return False
+return True
+
+#######################################################
+344. reverse string
+        l = 0
+        r = len(s) - 1
+
+        while l < r:
+            s[r] , s[l] = s[l], s[r]
+            l += 1
+            r -= 1
+######################################################
+977. Square root or sorted array
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        res = [0] * len(nums)
+        left = 0
+        right = len(nums) - 1
+
+        for i in range(len(nums) - 1, -1, -1):
+            if  abs(nums[left]) > abs(nums[right]):
+                res[i] = nums[left] ** 2
+                left += 1
+            else:
+                res[i] = nums[right] ** 2
+                right -= 1
+
+        return res
+##########################################################
+16 3 sum closest
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        
+        sums = nums[0] + nums[1] + nums[2]
+        nums.sort()
+
+
+        for i in range(len(nums) - 2):
+
+            j = i + 1
+            k = len(nums) - 1
+
+            while j < k:
+                total = nums[i] + nums[j] + nums[k]
+                if abs(total - target) < abs(sums - target):
+                    sums = total
+                if total > target:
+                    k -= 1
+                elif total < target:
+                    j += 1
+                else:
+                    break
+         
+        return sums
+
 
 
 
