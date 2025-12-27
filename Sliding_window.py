@@ -45,6 +45,123 @@ class Solution:
 
         return max_nums
 
+-----------------------------------------------
+## Prefix Subarray
+303. Range Sum Query - Immutable
+
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+        
+
+    def sumRange(self, left: int, right: int) -> int:
+        return sum(self.nums[left:right + 1])
+--------------------------------------------------------------
+724. Find Pivot Index
+#Fast
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+
+        pre_sum = sum(nums)
+        post_sum = 0
+
+        for i, n in enumerate(nums):
+            pre_sum -= n
+
+            if pre_sum == post_sum:
+                return i
+
+            post_sum += n
+
+        return -1
+
+or 
+#slow
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        for i in range(len(nums)):
+            if sum(nums[:i]) == sum(nums[i+1:]):
+                return i
+
+        return -1
+
+-------------------------------------------------
+2574. Left and Right Sum Differences
+class Solution:
+    def leftRightDifference(self, nums: List[int]) -> List[int]:
+        left_sum = [0] * len(nums)
+        right_sum = [0] * len(nums)
+        sum_l = 0
+        sum_r = 0
+        final =[]
+
+        for i in range(1,len(nums)):
+            sum_l += nums[i-1]
+            left_sum[i] = sum_l
+
+        for i in range(len(nums)- 2, -1, -1):
+            sum_r += nums[i+1]
+            right_sum[i] = sum_r
+
+        for i in range(len(nums)):
+            final.append(abs(left_sum[i] - right_sum[i]))
+
+        return final
+
+class Solution:
+    def leftRightDifference(self, nums: List[int]) -> List[int]:
+        pre = sum(nums)
+        res = [0] * len(nums)
+        post = 0
+
+        for i in range(len(nums)):
+            pre -= nums[i]
+            res[i] = abs(post -pre)
+            post += nums[i]
+
+        return res
+
+------------------------------------------------------------------
+974. Subarray Sums Divisible by K
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        count = 0
+        sums = 0
+        feq = {0:1}
+
+        for x in nums:
+            sums += x
+            r = sums % k
+            count += feq.get(r, 0)
+            feq[r] = feq.get(r , 0) + 1
+
+        return count
+
+----------------------------------------------------
+523. Continuous Subarray Sum
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        remainder_dict = {0: -1}  # Initializing with 0 to handle cases where the subarray itself is a multiple of k
+        cum_sum = 0
+        
+        for i in range(len(nums)):
+            cum_sum += nums[i]
+            remainder = cum_sum % k
+            
+            if remainder in remainder_dict:
+                if i - remainder_dict[remainder] > 1:  # Ensure the subarray length is at least 2
+                    return True
+            else:
+                remainder_dict[remainder] = i
+        
+        return False
+
+
+
+
+
+
         
 
 
