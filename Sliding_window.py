@@ -188,6 +188,39 @@ class Solution:
                 return False
         return True
 
+---------------------------------------------------------------
+2406. Divide Intervals Into Minimum Number of Groups
+class Solution:
+    def minGroups(self, intervals: List[List[int]]) -> int:
+
+        times = []
+        count = 0
+        final = 0
+
+        for i in intervals:
+            times.append((i[0], 1))
+            times.append((i[1], -1))
+
+        times.sort(key = lambda x: (x[0], -x[1]))
+
+        for t in times:
+            count += t[1]
+            final = max(final, count)
+
+        return final
+-----------------------------------------------------
+#1109. Corporate flight booking
+        booking_seat = [0] * (n + 1)
+
+        for f, l , s in bookings:
+            booking_seat[f - 1] += s
+            booking_seat[l] -= s
+
+        for i in range(1, n):
+            booking_seat[i] += booking_seat[i - 1]
+
+        return booking_seat[:n]
+
 
 
 
