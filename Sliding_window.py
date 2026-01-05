@@ -157,6 +157,39 @@ class Solution:
         
         return False
 
+####################################################
+Line Sweep
+253 Meeting roon II
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        nums_rooms = 0
+        ans = -1
+
+        times = []
+        for i in intervals:
+            times.append((i[0], 1))
+            times.append((i[1], -1))
+
+        times.sort()
+
+        for i in times:
+            nums_rooms += i[1]
+            ans = max(ans, nums_rooms)
+
+        return ans
+
+-------------------------------------------------------------
+252. Meeting room I
+class Solution:
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        intervals.sort(key = lambda x: x[0])
+        for i in range(len(intervals) - 1):
+            if intervals[i][1] > intervals[i + 1][0]:
+                return False
+        return True
+
+
+
 
 
 
