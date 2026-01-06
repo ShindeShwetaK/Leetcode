@@ -221,6 +221,30 @@ class Solution:
 
         return booking_seat[:n]
 
+------------------------------------------------------
+#5.	1854. Maximum Population Year
+class Solution:
+    def maximumPopulation(self, logs: List[List[int]]) -> int:
+        event = []
+        
+        for b,  d in logs:
+            event.append((b, 1))
+            event.append((d, -1))
+
+        event.sort()
+
+        max_pop = 0
+        pop = 0
+        best_year = 0
+
+        for year, change in event:
+            pop += change
+            if pop > max_pop:
+                max_pop = pop
+                best_year = year
+
+        return best_year
+
 
 
 
