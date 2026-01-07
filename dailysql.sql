@@ -25,7 +25,126 @@ FROM events
 WHERE app_id = 'instagram'
 GROUP BY DATE(event_time), platform;
 
+-----------------------------------------------------------------------
+EASY SQL #1 — Daily Event Count
+Problem
+For Instagram, count how many events occurred each day.
+Table
+events
+•	event_id STRING
+•	user_id BIGINT
+•	event_time TIMESTAMP
+•	event_name STRING
+•	app_id STRING
+Output
+•	event_date
+•	total_events
+Assumptions
+•	Use DATE(event_time) as the day
+•	Filter to app_id = 'instagram'
+
+SELECT
+  DATE(event_time) AS event_date,
+  COUNT(event_id) AS total_events
+FROM events
+WHERE app_id = 'instagram'
+GROUP BY event_date;
+
+___________________________________________________________
+EASY SQL #2 — Users per Country
+Problem
+Count how many users signed up from each country.
+Table
+users
+•	user_id BIGINT
+•	signup_time TIMESTAMP
+•	country STRING
+Output
+•	country
+•	user_count
+Assumptions
+•	Count distinct users
+•	Ignore users with country IS NULL
+
+SELECT
+  country,
+  COUNT(user_id) AS user_count
+FROM users
+WHERE country IS NOT NULL
+GROUP BY country;
+_____________________________________________________
+EASY SQL #3 — Posts per User
+Problem
+Find how many posts each user has created.
+Table
+posts
+•	post_id BIGINT
+•	user_id BIGINT
+•	created_time TIMESTAMP
+Output
+•	user_id
+•	post_count
+Assumptions
+•	Include users with at least one post
+•	No time filter
+
+  SELECT
+  user_id,
+  COUNT(post_id) AS post_count -- ignores NULLs automatically
+FROM posts
+GROUP BY user_id;
+
+
+_________________________________________________________
+  EASY SQL #4 — Sessions per Platform per Day
+Problem
+Count how many sessions occurred each day on each platform.
+Table
+sessions
+•	session_id STRING
+•	user_id BIGINT
+•	session_start TIMESTAMP
+•	platform STRING
+Output
+•	session_date
+•	platform
+•	session_count
+Assumptions
+•	Use DATE(session_start)
+•	Count sessions, not users
+
+select date(session_start) as session_date, platform,
+    count(session_id) as session_count
+    from sessions
+    group by session_date, platform;
+    
+
+    
 ________________________________________
+EASY SQL #5 — Users Who Liked a Post
+Problem
+List distinct users who have liked at least one post.
+Table
+events
+•	event_id STRING
+•	user_id BIGINT
+•	event_time TIMESTAMP
+•	event_name STRING
+Output
+•	user_id
+Assumptions
+•	A like is event_name = 'like'
+•	One row per user
+
+  select user_id  from events
+  where event_name = 'like'
+  group by user_id;
+or
+
+SELECT DISTINCT user_id
+FROM events
+WHERE event_name = 'like';
+_________________________________________________
 SQL #2 (Easy→Medium) — Top Posts by Engagement Rate (JOINs + aggregation)
 Problem statement
 For posts created in the last 7 days, find the top 10 posts by engagement rate = (likes + comments) / impressions. Return ties by higher impressions, then newest post.
