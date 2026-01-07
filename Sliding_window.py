@@ -245,6 +245,47 @@ class Solution:
 
         return best_year
 
+-------------------------------------------------------------
+ROLLING HASH / PREFIX HASH 
+459. Repeated Substring Pattern
+class Solution:
+    def repeatedSubstringPattern(self, s: str) -> bool:
+        n = len(s)
+
+        for i in range(1, n // 2 + 1):
+            if n % i == 0 and s[:i] * (n // i) == s:
+                return True
+
+        return False
+or
+return  s in (s + s)[1 : -1]
+
+--------------------------------------------------------
+796 rotate string
+class Solution:
+    def rotateString(self, s: str, goal: str) -> bool:
+        return len(s) == len(goal) and goal in (s  + s)
+
+-----------------------------------------------------------
+686. repeate string match
+class Solution:
+    def repeatedStringMatch(self, a: str, b: str) -> int:
+        if a == b:
+            return 1
+        new_str = a
+        count = 1
+
+        max_count = (len(b) // len(a)) + 2
+        while count <= max_count:
+            if b in new_str:
+                 return count
+            new_str += a
+            count += 1
+
+        return -1
+--------------------------------------------------------
+
+
 
 
 
