@@ -91,22 +91,33 @@ Clarifying assumptions (pick 1–2)
 •	Use app_id = 'instagram' for events.
 •	“Returned D1” means an event on signup_date + 1 (calendar day), not within 24 hours.
 
-  with new_user as (
-  select user_id, date(signup_time) as signup_date from users
-  ),
-  d1_returns as (
-  select 
-  distinct u.user_id, u.signup_date 
-  from new_user u join events e 
-  on u.user_id = e.user_id 
-  and  e.app_id = 'instagram'
-  and date(e.event_time) = u.signup_date + 1
-  )
-  
-
-
-
-  
+WITH new_users AS (
+  SELECT
+    user_id,
+    DATE(signup_time) AS signup_date
+  FROM users
+),
+d1_returns AS (
+  SELECT DISTINCT
+    u.user_id,
+    u.signup_date
+  FROM new_users u
+  JOIN events e
+    ON e.user_id = u.user_id
+   AND e.app_id = 'instagram'
+   AND DATE(e.event_time) = u.signup_date + 1
+)
+SELECT
+  u.signup_date,
+  COUNT(*) AS new_users,
+  COUNT(r.user_id) AS returned_d1_users,
+  COUNT(r.user_id) * 1.0 / COUNT(*) AS d1_retention_rate
+FROM new_users u
+LEFT JOIN d1_returns r
+  ON r.user_id = u.user_id
+ AND r.signup_date = u.signup_date
+GROUP BY u.signup_date
+ORDER BY u.signup_date;
 ________________________________________
 SQL #4 (Medium) — Signup → First Session → First Post Funnel (funnel + window functions)
 Problem statement
@@ -138,6 +149,61 @@ Required output columns
 Clarifying assumptions (pick 1–2)
 •	A user is counted in “session” if any session_start occurs within 7 days after signup (inclusive).
 •	A user is counted in “post” if any post is created within 7 days after signup (inclusive), regardless of session.
+
+  WITH signups AS (
+  SELECT
+    user_id,
+    signup_time,
+    DATE(signup_time) AS signup_date
+  FROM users
+),
+first_session AS (
+  SELECT
+    s.user_id,
+    MIN(se.session_start) AS first_session_start
+  FROM signups s
+  JOIN sessions se
+    ON se.user_id = s.user_id
+  GROUP BY s.user_id
+),
+first_post AS (
+  SELECT
+    s.user_id,
+    MIN(p.created_time) AS first_post_time
+  FROM signups s
+  JOIN posts p
+    ON p.user_id = s.user_id
+  GROUP BY s.user_id
+),
+flags AS (
+  SELECT
+    s.signup_date,
+    s.user_id,
+    CASE
+      WHEN fs.first_session_start IS NOT NULL
+       AND fs.first_session_start <= s.signup_time + INTERVAL '7' DAY
+      THEN 1 ELSE 0
+    END AS has_session_7d,
+    CASE
+      WHEN fp.first_post_time IS NOT NULL
+       AND fp.first_post_time <= s.signup_time + INTERVAL '7' DAY
+      THEN 1 ELSE 0
+    END AS has_post_7d
+  FROM signups s
+  LEFT JOIN first_session fs ON fs.user_id = s.user_id
+  LEFT JOIN first_post fp ON fp.user_id = s.user_id
+)
+SELECT
+  signup_date,
+  COUNT(*) AS signup_users,
+  SUM(has_session_7d) AS users_with_session_7d,
+  SUM(has_post_7d) AS users_with_post_7d,
+  SUM(has_session_7d) * 1.0 / COUNT(*) AS session_conv_rate,
+  SUM(has_post_7d) * 1.0 / COUNT(*) AS post_conv_rate
+FROM flags
+GROUP BY signup_date
+ORDER BY signup_date;
+
 ________________________________________
 SQL #5 (Medium) — Conversation Reply Time (window functions + messages)
 Problem statement
@@ -159,7 +225,47 @@ Required output columns
 •	median_reply_time_seconds
 Clarifying assumptions (pick 1–2)
 •	Filter to is_group = false.
-•	A “reply” is defined as the next message in time where sender_user_id is different from the previous sender; ignore same-sender streaks when measuring reply time (or measure from the last message in the streak—choose one).
+•	A “reply” is defined as the next message in time where sender_user_id is different from the previous sender; ignore same-sender streaks when measuring reply time 
+  (or measure from the last message in the streak—choose one).
+
+  WITH base AS (
+  SELECT
+    message_id,
+    conversation_id,
+    sender_user_id,
+    sent_time,
+    DATE(sent_time) AS sent_date,
+    message_text,
+    LAG(sent_time) OVER (
+      PARTITION BY conversation_id, sender_user_id, message_text
+      ORDER BY sent_time
+    ) AS prev_sent_time
+  FROM messages
+  WHERE message_text IS NOT NULL
+    AND TRIM(message_text) <> ''
+),
+dupes AS (
+  SELECT
+    sent_date,
+    conversation_id,
+    sender_user_id,
+    CASE
+      WHEN prev_sent_time IS NOT NULL
+       AND EXTRACT(EPOCH FROM (sent_time - prev_sent_time)) <= 10
+      THEN 1 ELSE 0
+    END AS is_dup
+  FROM base
+)
+SELECT
+  sent_date,
+  conversation_id,
+  sender_user_id,
+  SUM(is_dup) AS duplicate_message_count
+FROM dupes
+GROUP BY sent_date, conversation_id, sender_user_id
+HAVING SUM(is_dup) > 0
+ORDER BY sent_date, conversation_id, sender_user_id;
+
 ________________________________________
 SQL #6 (Medium) — Debugging/Data Quality: Detect Duplicate Ad Clicks (data quality + aggregation)
 Problem statement
