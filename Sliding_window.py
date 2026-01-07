@@ -284,6 +284,16 @@ class Solution:
 
         return -1
 --------------------------------------------------------
+1062 Longest repeating substring
+class Solution:
+    def longestRepeatingSubstring(self, s: str) -> int:
+        ans = 0
+
+        for i in range(len(s)):
+            if s[i - ans : i + 1] in s[:i]:
+                ans +=1
+
+        return ans
 
 
 
