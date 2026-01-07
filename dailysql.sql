@@ -145,6 +145,158 @@ SELECT DISTINCT user_id
 FROM events
 WHERE event_name = 'like';
 _________________________________________________
+
+Medium SQL #1 — D7 Retention by Signup Date (retention)
+Problem statement
+For each signup_date, compute D7 retention: among users who signed up on that date, what % had any Instagram event on signup_date + 7.
+Table schema(s)
+users
+•	user_id BIGINT
+•	signup_time TIMESTAMP
+events
+•	event_id STRING
+•	user_id BIGINT
+•	event_time TIMESTAMP
+•	event_name STRING
+•	app_id STRING
+Required output columns
+•	signup_date (DATE)
+•	new_users
+•	returned_d7_users
+•	d7_retention_rate
+Clarifying assumptions (1–2)
+•	Use only events where app_id = 'instagram'.
+•	“Returned D7” means any event on the calendar day signup_date + 7 (not within 168 hours).
+
+
+WITH signups AS (
+  SELECT
+    user_id,
+    DATE(signup_time) AS signup_date
+  FROM users
+),
+d7_returns AS (
+  SELECT DISTINCT
+    s.user_id,
+    s.signup_date
+  FROM signups s
+  JOIN events e
+    ON e.user_id = s.user_id
+   AND e.app_id = 'instagram'
+   AND DATE(e.event_time) = s.signup_date + 7
+)
+SELECT
+  s.signup_date,
+  COUNT(DISTINCT s.user_id) AS new_users,
+  COUNT(DISTINCT r.user_id) AS returned_d7_users,
+  COUNT(DISTINCT r.user_id) * 1.0 / COUNT(DISTINCT s.user_id) AS d7_retention_rate
+FROM signups s
+LEFT JOIN d7_returns r
+  ON r.user_id = s.user_id
+ AND r.signup_date = s.signup_date
+GROUP BY s.signup_date
+ORDER BY s.signup_date;
+
+
+  
+________________________________________
+Medium SQL #2 — 3-Step Funnel: Session → Post → Like (funnel + joins + grouping)
+Problem statement
+For each day, compute a funnel for users who started a session that day:
+1.	started a session
+2.	created at least one post within 24 hours of that session start
+3.	received at least one like on any of those posts within 7 days of the post creation
+Return counts and conversion rates from step 1.
+Table schema(s)
+sessions
+•	session_id STRING
+•	user_id BIGINT
+•	session_start TIMESTAMP
+•	platform STRING
+posts
+•	post_id BIGINT
+•	user_id BIGINT
+•	created_time TIMESTAMP
+events (used for likes)
+•	event_id STRING
+•	user_id BIGINT -- user who performed the like
+•	event_time TIMESTAMP
+•	event_name STRING
+•	post_id BIGINT -- post that was liked (assume present for like events)
+•	app_id STRING
+Required output columns
+•	session_date (DATE)
+•	session_users
+•	users_who_posted_24h
+•	users_whose_posts_got_like_7d
+•	post_conv_rate
+•	like_conv_rate
+Clarifying assumptions (1–2)
+•	A user is counted once per day per step (distinct user counts).
+•	Like events are identified by event_name = 'like' and app_id = 'instagram'.
+
+WITH session_cte AS (
+  SELECT
+    session_id,
+    user_id,
+    session_start,
+    DATE(session_start) AS session_date
+  FROM sessions
+),
+
+-- posts created within 24h after a session start (for the same user)
+posts_24h AS (
+  SELECT DISTINCT
+    s.session_date,
+    s.user_id,
+    p.post_id,
+    p.created_time
+  FROM session_cte s
+  JOIN posts p
+    ON p.user_id = s.user_id
+   AND p.created_time >= s.session_start
+   AND p.created_time <  s.session_start + INTERVAL '24' HOUR
+),
+
+-- posts (from posts_24h) that received at least one like within 7 days of post creation
+liked_posts_7d AS (
+  SELECT DISTINCT
+    p24.session_date,
+    p24.user_id,
+    p24.post_id
+  FROM posts_24h p24
+  JOIN events e
+    ON e.post_id = p24.post_id
+   AND e.app_id = 'instagram'
+   AND e.event_name = 'like'
+   AND e.event_time >= p24.created_time
+   AND e.event_time <  p24.created_time + INTERVAL '7' DAY
+)
+
+SELECT
+  s.session_date,
+  COUNT(DISTINCT s.user_id) AS session_users,
+  COUNT(DISTINCT p24.user_id) AS users_who_posted_24h,
+  COUNT(DISTINCT lp.user_id) AS users_whose_posts_got_like_7d,
+  COUNT(DISTINCT p24.user_id) * 1.0 / COUNT(DISTINCT s.user_id) AS post_conv_rate,
+  COUNT(DISTINCT lp.user_id) * 1.0 / COUNT(DISTINCT s.user_id) AS like_conv_rate
+FROM session_cte s
+LEFT JOIN posts_24h p24
+  ON p24.session_date = s.session_date
+ AND p24.user_id = s.user_id
+LEFT JOIN liked_posts_7d lp
+  ON lp.session_date = s.session_date
+ AND lp.user_id = s.user_id
+GROUP BY s.session_date
+ORDER BY s.session_date;
+
+  
+  
+  
+  
+  
+
+  --------------------------------------------------------------------------------------
 SQL #2 (Easy→Medium) — Top Posts by Engagement Rate (JOINs + aggregation)
 Problem statement
 For posts created in the last 7 days, find the top 10 posts by engagement rate = (likes + comments) / impressions. Return ties by higher impressions, then newest post.
