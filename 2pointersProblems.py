@@ -531,8 +531,40 @@ class Solution:
         return res
 
 ####################################################
+#75. Sort Colors
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        counter = {}
+
+        for i in nums:
+            if i not in counter:
+                counter[i] = 1
+            else:
+                counter[i] += 1
+
+        index = 0
+
+        for i in range(3):
+            value = counter.get(i, 0)
+
+            for _ in range(value):
+                nums[index] = i
+                index += 1
+
+################################
 
 
+
+
+
+
+
+
+
+        
 
 
 
