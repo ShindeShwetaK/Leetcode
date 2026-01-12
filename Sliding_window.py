@@ -309,6 +309,22 @@ class Solution:
             res[prefix] += 1
             print(ans, res)
         return ans
+        ----------------------------------------
+        1838. Frequency of the Most Frequent Element 
+        class Solution:
+    def maxFrequency(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        mx=0
+        left=0
+        total=0
+
+        for right in range(len(nums)):
+            total+=nums[right]
+            if nums[right]*(right-left+1)-total>k:
+                total-=nums[left]
+                left+=1
+            mx=max(mx,right-left+1)
+        return mx
         
 
 
