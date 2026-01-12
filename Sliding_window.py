@@ -294,6 +294,22 @@ class Solution:
                 ans +=1
 
         return ans
+    ---------------------------------------------
+    930. Binary Subarrays With Sum
+    class Solution:
+    def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
+        res = defaultdict(int)
+        res[0] = 1
+        ans  = 0
+        prefix = 0
+
+        for i in nums:
+            prefix += i
+            ans += res[prefix - goal]
+            res[prefix] += 1
+            print(ans, res)
+        return ans
+        
 
 
 
