@@ -107,4 +107,53 @@ class Solution:
                 stack.append(i)
 
         return res
+
+###############################################################
+901. Online Stock Span
+class StockSpanner:
+
+    def __init__(self):
+        self.stack =[]
+        
+
+    def next(self, price: int) -> int:
+        span = 1
+        while self.stack and self.stack[-1][0] <= price:
+            span += self.stack.pop()[1]
+        self.stack.append((price, span))
+        return span
+#################################################################
+853. Car Fleet
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        cars = [[p, s] for p , s in zip(position, speed)]
+        st =[]
+        print(sorted(cars))
+
+        for p, s in sorted(cars)[::-1]:
+            time = (target - p) / s
+            print(time)
+            if not st or time > st[-1]:
+                st.append(time)
+
+        return len(st)
+##################################################################
+402. Remove K Digits
+class Solution:
+    def removeKdigits(self, num: str, k: int) -> str:
+        stack =[]
+
+        for i in num:
+            while stack and stack[-1] > i and k >0:
+                stack.pop()
+                k -= 1
+            stack.append(i)
+
+        while k > 0:
+            stack.pop()
+            k -= 1
+
+        result = "".join(stack).lstrip('0')
+
+        return result if result else "0"
   
