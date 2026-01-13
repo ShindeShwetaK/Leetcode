@@ -90,4 +90,21 @@ class Solution:
             stack.append((temp, index))
 
         return result
+
+#######################################################################
+503. Next Greater Element II
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        stack = []
+        n = len(nums)
+        res = [-1] * n
+
+        for i in range(2 * n):
+            curr = nums[i % n]
+            while stack and nums[stack[-1]]< curr:
+                res[stack.pop()] = curr
+            if i < n:
+                stack.append(i)
+
+        return res
   
