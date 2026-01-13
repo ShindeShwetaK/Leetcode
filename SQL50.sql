@@ -548,3 +548,55 @@ from Users
 where mail regexp '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode\\.com$'
 
 #################################################
+1070. Product Sales Analysis III
+with first_year_sales as (
+    select
+        product_id,
+        min(year) first_year
+    from sales
+    group by product_id
+)
+
+select  s.product_id,
+        f.first_year,
+        s.quantity,
+        s.price
+from first_year_sales f join sales s
+on f.product_id = s.product_id
+and s.year = f.first_year
+
+--or 
+with year_ranks as (
+select product_id , 
+year as first_year ,
+quantity,
+price,
+dense_rank() over (partition by product_id order by year) as year_rank
+from sales
+)
+
+select 
+product_id , 
+first_year ,
+quantity,
+price
+from year_ranks where year_rank = 1
+
+##########################################
+	550. Game Play Analysis IV
+WITH first_login AS (
+  SELECT player_id, MIN(event_date) AS first_date
+  FROM Activity
+  GROUP BY player_id
+)
+SELECT ROUND(
+  COUNT(DISTINCT a.player_id) / (SELECT COUNT(*) FROM first_login),
+  2
+) AS fraction
+FROM first_login f
+JOIN Activity a
+  ON a.player_id = f.player_id
+ AND a.event_date = DATE_ADD(f.first_date, INTERVAL 1 DAY);
+################################################
+
+
