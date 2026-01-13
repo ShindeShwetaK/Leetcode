@@ -61,4 +61,17 @@ class Solution:
             print( stack, last_occur)
 
         return "".join(stack)
+        #############################################################
+1475. Final price with special discount
+class Solution:
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        stack =[]
+
+        for i , cur in enumerate(prices):
+            while stack and prices[stack[-1]] >= cur:
+                prices[stack.pop()] -= cur
+
+            stack.append(i)
+
+        return prices
   
