@@ -156,4 +156,42 @@ class Solution:
         result = "".join(stack).lstrip('0')
 
         return result if result else "0"
+
+##################################################################
+456. 132 Pattern
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        stack = []
+        s2 = float('-inf')
+
+        for i in range(len(nums) -1, -1, -1):
+            if nums[i] < s2:
+                return True
+
+            while stack and nums[i] > stack[-1]:
+                s2 = stack.pop()
+
+            stack.append(nums[i])
+
+        return False
+
+####################################################################
+907. Sum of Subarray Minimums
+class Solution:
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        stack = []
+        res = [0] *len(arr)
+
+        for i in range(len(arr)):
+            while stack and arr[stack[-1]] > arr[i]:
+                stack.pop()
+
+            j = stack[-1] if stack else -1
+
+            res[i] = res[j] + (i - j) * arr[i]
+        
+
+            stack.append(i)
+
+        return sum(res) % (10**9+7)
   
