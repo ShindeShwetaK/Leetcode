@@ -557,3 +557,14 @@ Clarifying assumptions (pick 1–2)
 •	Treat clicks as duplicates if there exists another click by the same (ad_id, user_id) within ±5 seconds (or only within +5 seconds forward—choose one).
 •	Ignore users with high-frequency clicking patterns beyond 1 minute (or do not ignore—choose one).
 
+  ######################################################
+  CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  set N= N - 1;
+  RETURN (
+       select distinct Salary from employee 
+       order by salary desc
+       limit 1 OFFSET N
+  );
+END
+
