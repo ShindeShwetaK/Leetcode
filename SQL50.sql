@@ -146,11 +146,11 @@ group by s1.student_id, s.subject_name order by s1.student_id, s.subject_name;
 #################################################
 
 13)--Managers with at Least 5 Direct Reports
-select a.name from 
-employee a join employee b 
-on a.id=b.managerid
-group by b.managerid
-having count(*)>=5;
+select m.name from 
+employee e inner join employee m on
+e.managerid = m.id
+group by e.managerid
+having count(e.managerid)>=5
 
 #################################################
 
