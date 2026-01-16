@@ -612,5 +612,20 @@ JOIN Activity a
   ON a.player_id = f.player_id
  AND DATEDIFF(a.event_date, f.first_date) = 1;
 ################################################
+262. Trips and Users
+with banned as (
+    select users_id from users where banned = "Yes"
+)
 
+select request_at ,
+round(SUM(
+    CASE when status like 'cancelled%' then 1.00 else 0 end) / count(*)
+    ,2) as "cancellation rate"
 
+    from trips where
+    client_id not in (select users_id from banned) 
+    and driver_id not in (select users_id from banned)
+    and request_at between '2013-10-01' and  '2013-10-03'
+    group by request_at;
+
+################################################
