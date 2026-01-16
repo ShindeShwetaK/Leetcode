@@ -210,6 +210,62 @@ class Solution:
         return "".join(stack)
 
 ###############################################################
+150. evaluate reverse polish notation
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+
+        for i in tokens:
+            if i == '+':
+                stack.append(stack.pop() + stack.pop())
+               
+            elif i == '*':
+                stack.append(stack.pop() * stack.pop())
+        
+            elif i == "/":
+               second, first = stack.pop(), stack.pop()
+               stack.append(int(first / second))
+
+            elif i == '-':
+                second, first = stack.pop(), stack.pop()
+                stack.append(first - second)
+
+            else:
+                stack.append(int(i))        
+
+        return stack[0]
+
+###############################################################
+227, basic calcularor
+class Solution:
+    def calculate(self, s: str) -> int:
+        stack = []
+        num = 0
+        ope = '+'
+
+        for i , char in enumerate(s):
+            if char.isnumeric():
+                num = num *10 + int(char)
+
+            if char in '+-*/' or i == len(s) -1:
+                if ope == '+':
+                    stack.append(num)
+                elif ope == '-':
+                    stack.append(-num)
+                elif ope  == '*':
+                    j = stack.pop() * num
+                    stack.append(j)
+                elif ope  == '/':
+                    j = int(stack.pop() / num)
+                    stack.append(j)
+
+                ope = char
+                num = 0
+
+        return sum(stack)
+                
+
+        
 
                 
     
