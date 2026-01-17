@@ -645,3 +645,43 @@ AND tiv_2015 IN (
     GROUP BY tiv_2015
     HAVING COUNT(*) > 1
 );
+#####################################################
+586 customer places higest orders
+# Write your MySQL query statement below
+select customer_number from orders
+group by customer_number
+order by count(customer_number) desc limit 1;
+################################################
+607 sales person
+ select s.name
+    from SalesPerson s
+        left join Orders o on s.sales_id = o.sales_id
+        left join Company c on o.com_id = c.com_id
+    where c.name = 'Red'
+#############################################
+	608 tree node
+SELECT id,
+
+    CASE 
+        WHEN p_id IS NULL THEN 'Root'
+        WHEN id IN (SELECT p_id FROM Tree)THEN 'Inner'
+        ELSE 'Leaf'
+        END AS type
+ FROM Tree
+###################################################
+610 trangle
+SELECT x,y,z,
+case WHEN (x+y) > z AND (x+z) > y AND (y+z) > x THEN 'Yes' ELSE 'No' end AS triangle
+FROM Triangle 
+############################################
+619biggest single
+SELECT MAX(num) AS num
+FROM (
+    SELECT num
+    FROM MyNumbers
+    GROUP BY num
+    HAVING COUNT(num) = 1
+) AS unique_numbers;
+		
+
+
