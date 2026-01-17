@@ -263,6 +263,46 @@ class Solution:
                 num = 0
 
         return sum(stack)
+
+######################################################
+1598. Crawler Log 
+class Solution:
+    def minOperations(self, logs: List[str]) -> int:
+        stack = []
+
+        for i in logs:
+            if i == './':
+                continue
+            elif i == '../' and stack:
+                stack.pop()
+            elif i!="../":
+                stack.append(i)
+
+        return len(stack)
+
+###################################################
+1021. Remove Outermost
+class Solution:
+    def removeOuterParentheses(self, s: str) -> str:
+        stack = []
+        c = 0
+        for i in s:
+            if i == '(':
+                if c > 0:
+                    stack.append(i)
+                c += 1
+
+            else:
+                c -= 1
+                if c > 0:
+                    stack.append(i)
+
+        return "".join(stack)
+
+###############################################################################
+
+        
+
                 
 
         
