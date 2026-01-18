@@ -682,6 +682,64 @@ FROM (
     GROUP BY num
     HAVING COUNT(num) = 1
 ) AS unique_numbers;
+############################################
+627 Swap Sex
+# Write your MySQL query statement below
+Update salary set 
+sex = Case
+        when sex = 'f' then 'm'
+        else 'f'
+      END
+###########################################
+626 Xchange Seat
+# Write your MySQL query statement below
+select id,
+case
+    when id % 2 = 0 then LAG(student) over (order by id)
+    else coalesce(LEAD (student) over (order by id) , student)
+    End as student from seat;
+#######################################
+1045 customer bought all products
+# Write your MySQL query statement below
+select customer_id from customer
+group by customer_id
+having count(distinct product_key) = (select count(product_key) from Product);
+######################################
+1050 actor direct work together more then 3 times
+# Write your MySQL query statement below
+select actor_id , director_id from ActorDirector 
+group by actor_id, director_id
+having count(timestamp) >= 3
+###################################
+1084 Sales analysisIII
+# Write your MySQL query statement below
+select p.product_id, p.product_name
+from product p left join sales s
+on p.product_id = s.product_id
+group by p.product_id, product_name
+having min(s.sale_date) >= '2019-01-01' and MAX(s.sale_date)<='2019-03-31';
+##################################
+1141. user active for past 30 days
+# Write your MySQL query statement below
+select activity_date as day , count(distinct(user_id)) as active_users
+from Activity
+where activity_date<"2019-07-28" and activity_date>"2019-06-27"
+group by activity_date
+#####################################
+1158 Market analysis
+with cte as (
+select buyer_id,count(*) as orders_in_2019
+from orders 
+where year(order_date)=2019
+group by buyer_id )
+
+select user_id as buyer_id ,join_date,coalesce(orders_in_2019 ,0) as orders_in_2019
+from cte c right join users u 
+on u.user_id =c.buyer_id 
+###############################
+
+
+
 		
 
 
