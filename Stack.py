@@ -300,6 +300,27 @@ class Solution:
         return "".join(stack)
 
 ###############################################################################
+189. rotate array
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        #while k != 0:
+           # nums.insert(0, nums[-1])
+            #nums.pop(-1)
+           # k -= 1
+        n = len(nums)
+        k = k % n
+        if k == 0: return
+        
+        print(k, nums[-k:],nums[:-k], nums[k:] )
+        #3 [5, 6, 7] [1, 2, 3, 4] [4, 5, 6, 7]
+        temp = nums[-k:]
+        nums[k:] = nums[:-k]
+        nums[:k] = temp
+
+                
 
         
 
