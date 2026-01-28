@@ -325,6 +325,21 @@ class Solution:
                 left+=1
             mx=max(mx,right-left+1)
         return mx
+
+-----------------------------------------------
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        new_p = "".join(sorted(p))
+        n = len(p)
+        result = []
+
+        for i in range(len(s) - (n-1) ):
+            new_s= "".join(sorted(s[i : n + i]))
+
+            if  new_s == new_p:
+                result.append(i)
+
+        return result
         
 
 
