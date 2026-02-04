@@ -90,6 +90,61 @@ class Solution:
         return res
 
 ###########################################
+107.Binary Tree Level Order Traversal II
+    def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
+        res = []
+        if not root:
+            return []
+
+        q = collections.deque()
+        q.append(root)
+
+        while q:
+            arr = []
+            for _ in range(len(q)):
+                node = q.popleft()
+                arr.append(node.val)
+
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+
+            res.append(arr)
+
+        return res[::-1]
+
+######################################
+993. Cousins in Binary Tree
+class Solution:
+    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
+        if not root:
+            return False
+
+        res = []
+
+        q = deque([(root, None, 0)])
+
+        while q:
+            if len(res) == 2:
+                break 
+
+            node, parent, depth = q.popleft()
+
+            if node.val == x or node.val == y:
+                res.append((parent, depth))
+
+            if node.left:
+                q.append((node.left, node, depth + 1))
+
+            if node.right:
+                q.append((node.right, node, depth + 1))
+
+        node_x, node_y = res
+
+        return node_x[0] != node_y[0] and node_x[1] == node_y[1]
+
+##################################################
 
 
 
