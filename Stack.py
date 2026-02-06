@@ -320,6 +320,49 @@ class Solution:
         nums[k:] = nums[:-k]
         nums[:k] = temp
 
+#####################################
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+         s = list(s)
+         print(s)
+         stack = []
+         for i, char in enumerate(s):
+             if char == '(':
+                 stack.append(i)
+             elif char == ')':
+                 if stack:
+                     stack.pop()
+                 else:
+                     s[i] = ''
+
+             print(stack, s)
+         while stack:
+            s[stack.pop()] = ''
+         return ''.join(s)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+        
+
                 
 
         
