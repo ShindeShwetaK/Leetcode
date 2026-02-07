@@ -252,6 +252,56 @@ def postorder(root):
         while root:
             return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
+###############################
+226. Invert Binary Tree
+
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return 
+
+        stack = [root]
+
+        while stack:
+            node = stack.pop()
+
+            node.left, node.right = node.right , node.left
+
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+
+        return root
+
+BFS
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return 
+
+        q = deque([root])
+
+        while q:
+            node = q.popleft()
+
+            node.left, node.right = node.right , node.left
+
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return 
+
+        temp = root.left
+        root.left =  self.invertTree(root.right)
+        root.right = self.invertTree(temp)
+
+        return root
+
 
         
 
