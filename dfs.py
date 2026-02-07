@@ -302,6 +302,67 @@ class Solution:
 
         return root
 
+#####################################
+841. Keys and Rooms
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        def dfs(room):
+            visited.add(room)
+            for key in rooms[room]:
+                if key not in visited:
+                    dfs(key)
+
+        visited = set()
+        dfs(0)
+        return len(rooms) == len(visited)
+
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        keys = {key for key in rooms[0]}
+        visited = set()
+        visited.add(0)
+
+        while keys:
+            print(keys)
+            val = keys.pop()
+            print(val)
+            if val not in visited:
+                for i in rooms[val]:
+                    keys.add(i)
+                visited.add(val)
+
+        return len(rooms) == len(visited) 
+
+
+
+###############################
+733.Flood fill
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+
+        rows, cols = len(image), len(image[0])
+        start = image[sr][sc]
+
+        if start == color:
+            return image
+
+        q = deque([(sr,sc)])
+        image[sr][sc] = color
+
+        while q:
+            r , c = q.popleft()
+            dirs = [(1,0),(-1,0),(0,1),(0,-1)]
+
+            for dr, dc in dirs:
+                nr, nc = r + dr, c + dc
+                
+                if 0<= nr < rows and 0 <= nc < cols and image[nr][nc] == start:
+                    image[nr][nc] = color
+                    q.append((nr, nc))
+
+        return image
+
+##################################
+
 
         
 
