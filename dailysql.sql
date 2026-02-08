@@ -620,6 +620,27 @@ SELECT *
 FROM reporting_chain
 ORDER BY level, id;
 
+########################
+“NOT EXISTS returns rows for which no matching row exists in the subquery; it’s NULL-safe and preferred over NOT IN.”
+  Finding missing ids
+SELECT e1.id + 1 AS missing_id
+FROM employees e1
+LEFT JOIN employees e2
+  ON e2.id = e1.id + 1
+WHERE e2.id IS NULL
+ORDER BY missing_id;
+
+or
+
+SELECT (id + 1) AS missing_id
+FROM employees e1
+WHERE NOT EXISTS (
+ SELECT 1 FROM employees e2 WHERE e2.id =
+e1.id + 1
+)
+ORDER BY missing_id;
+
+###############################
 
 
 
