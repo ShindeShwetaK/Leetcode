@@ -568,3 +568,58 @@ BEGIN
   );
 END
 
+
+  ######################################
+"Departments with no employees can be found using a LEFT JOIN and filtering NULLs, or by using NOT EXISTS."
+
+SELECT d.department_id, d.department_name
+FROM departments d
+LEFT JOIN employees e
+  ON d.department_id = e.department_id
+WHERE e.employee_id IS NULL;
+
+SELECT d.department_id, d.department_name
+FROM departments d
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM employees e
+    WHERE e.department_id = d.department_id
+
+  ###################################
+  “Adding ORDER BY to a window function changes the default frame to cumulative — from the start of the partition to the current row — which produces a running total.”
+  
+  SELECT name, department_id, salary,
+ SUM(salary) OVER (PARTITION BY
+department_id ORDER BY id) AS running_total
+FROM employees;
+###################################
+With steak_login as(
+  select user_id, login_date,
+  login_date - INTERVAL ROW_NUMBER() over (Partition by user_id order by login_date desc) as login_steak
+  from user logins
+)
+select user_id, count(*) as total_login,
+min(login_steak) as start_date and max(login_steak) ad end_date
+from steak_login 
+group by user_id, login_steak
+order by total_login desc;
+#########################
+WITH RECURSIVE reporting_chain AS (
+    SELECT id, name, manager_id, 1 AS level
+    FROM employees
+    WHERE manager_id IS NULL
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id, rc.level + 1
+    FROM employees e
+    JOIN reporting_chain rc
+      ON e.manager_id = rc.id
+)
+SELECT * 
+FROM reporting_chain
+ORDER BY level, id;
+
+
+
+
