@@ -642,5 +642,24 @@ ORDER BY missing_id;
 
 ###############################
 
+Find departments with the highest average salary.
+  with avg_salaries_dept(
+  select dept_id, avg(salary) as avg_sal from department
+  group by dept_id
+  )
+select * from avg_salaries_dept
+where sal = (select max(avg_sal) from avg_salaries_dept)
+
+or 
+
+SELECT department_id, avg_salary
+FROM (
+  SELECT department_id,
+         AVG(salary) AS avg_salary,
+         RANK() OVER (ORDER BY AVG(salary) DESC) AS rnk
+  FROM employees
+  GROUP BY department_id
+) t
+WHERE rnk = 1;
 
 
