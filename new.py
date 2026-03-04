@@ -84,6 +84,36 @@ class Solution:
         return count
 
 -----------------------------------------------------------------
+77. Combinations
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        result = []
+        subset = []
+
+
+        def createcombo(i):
+            if len(subset) == k:
+                result.append(subset[:])
+                return 
+
+            for num in range(i, n + 1):
+                subset.append(num)
+                createcombo(num + 1)
+                subset.pop()
+
+        createcombo(1)
+        return result
+
+________________________________________________________________________
+
+
+
+
+        
+
+
+        
 
 
 
