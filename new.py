@@ -106,6 +106,114 @@ class Solution:
         return result
 
 ________________________________________________________________________
+39. Combination Sum
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        result = []
+
+        def make_combo(idx, comb, total):
+            if target == total:
+                result.append(comb[:])
+                return
+
+            if total > target or idx >= len(candidates):
+                return
+
+            comb.append(candidates[idx])
+            make_combo(idx, comb, total + candidates[idx] )
+            comb.pop()
+            make_combo(idx + 1, comb, total)
+
+            return result
+
+
+
+        return make_combo(0, [], 0)
+
+_________________________________________________________________________
+40. Combination Sum II
+
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
+        result = []
+
+        def dfs(target, start, comb):
+            if target < 0:
+                return
+
+            if target == 0:
+                result.append(comb)
+                return
+
+            for i in range(start,len(candidates)):
+                if i > start and candidates[i] == candidates[i-1]:
+                    continue
+                if candidates[i] > target:
+                    break
+                dfs(target - candidates[i] ,  i + 1, comb + [candidates[i]]) 
+
+
+
+        dfs(target, 0 , [])
+        return result
+_______________________________________________________________
+131. Palindrome Partitioning
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        def is_palindrome(sub):
+            return sub == sub[::-1]
+
+        def backtrack(start, path):
+            if start == len(s):
+                result.append(path[:])
+                return
+            for end in range(start + 1, len(s) + 1):
+                if is_palindrome(s[start:end]):
+                    backtrack(end, path + [s[start:end]])
+
+        result = []
+        backtrack(0, [])
+        return result
+
+______________________________________________________________________
+Letter combination of the phone number
+
+class Solution:
+     def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+        
+        digit_to_letters = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz',
+        }
+
+        def backtrack(idx, comb):
+            if idx == len(digits):
+                res.append(comb[:])
+                return
+            
+            for letter in digit_to_letters[digits[idx]]:
+                print(digit_to_letters[digits[idx]],digits[idx],  comb + letter, idx)
+                backtrack(idx + 1, comb + letter)
+
+        res = []
+        backtrack(0, "")
+
+        return res
+        
+
+   
+        
+
+
 
 
 
