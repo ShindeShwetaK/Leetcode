@@ -18,7 +18,37 @@ class Solution:
         return False
 
 
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
 
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if target == matrix[i][j]:
+                    return True
+
+        return False
+
+
+#######################################################
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        r = 0
+        l = len(nums) - 1
+
+        while r <= l:
+            mid = r + ((l - r) //2)
+
+            if target == nums[mid]:
+                return mid
+
+            elif nums[mid] > target:
+                l = mid - 1
+
+            else:
+                r  = mid + 1
+
+        return -1
 
 
 
