@@ -555,7 +555,74 @@ class Solution:
                 index += 1
 
 ################################
+Valid Sudoku
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        for row in range(9):
+            seen = set()
+            for i in range(9):
+                if board[row][i] == '.':
+                    continue
+                if board[row][i] in seen:
+                    return False
+                seen.add(board[row][i])
 
+        for col in range(9):
+            seen = set()
+            for i in range(9):
+                if board[i][col] == '.':
+                    continue
+                if board[i][col] in seen:
+                    return False
+                seen.add(board[i][col])
+                
+
+        for square in range(9):
+            seen = set()
+            for i in range(3):
+                for j in range(3):
+                    row = (square // 3) * 3 + i
+                    col = (square % 3) * 3 + j
+                    if board[row][col] == '.':
+                        continue
+                    if board[row][col] in seen:
+                        return False
+                    seen.add(board[row][col])
+
+        return True
+
+                    
+        #############################################
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        l = 0
+        r = len(height) - 1
+        leftmax = height[l]
+        rightmax = height[r]
+        result = 0
+
+        while l < r:
+            if leftmax < rightmax:
+                l += 1
+                leftmax = max(leftmax, height[l])
+                result += leftmax - height[l]
+
+            else:
+                r -= 1
+                rightmax = max(rightmax, height[r])
+                result += rightmax - height[r]
+
+        return result
+
+###############################################
+
+
+
+
+
+
+
+        
 
 
 
