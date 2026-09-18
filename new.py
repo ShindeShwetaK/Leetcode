@@ -239,6 +239,87 @@ class Solution:
             listb = listb.next if listb else headA
 
         return listb
+
+__________________________________________________
+def another_one(digits):
+	carry = 0
+	result = []
+	length = len(digits) - 1
+	j = length
+	
+	while j >= 0:
+	  total= 0
+	  total += carry
+	  
+	  if j == length:
+	     total = digits[j] + 1
+	  else:
+	     total += digits[j]
+	     
+	  num = total % 10
+	  carry = total // 10
+	  result.append(num)
+	  j -= 1
+	  
+	  
+	if carry:
+	  result.append(carry)
+	  
+	return result[::-1]
+
+____________________________________________________
+def weakest_strong_link(strength ):
+	
+	
+	for i in range(len(strength)):
+	  for j in range(len(strength[0])):
+	    min_number = min(strength[i])
+	    max_number = max(cols[j] for cols in strength)
+	    if strength[i][j] == min_number and strength[i][j] == max_number:
+	      return strength [i][j]
+	      
+	return -1
+
+___________________________________________________________
+def triangular_sum(nums):
+  n = len(nums)
+  j = 0
+  
+  while n >= 0:
+    for i in range(len(nums) - (j+ 1)):
+      nums[i] = (nums[i] + nums[i+1]) % 10
+  
+    n -= 1
+    j += 1
+  return nums[0]
+
+
+    def triangular_sum(nums):
+        while len(nums)>1:
+            next_nums = []
+            for i in range(1,len(nums)):
+                next_nums.append((nums[i-1]+nums[i])%10)
+            nums = next_nums
+        return nums[0]
+
+
+___________________________________________________
+def romanToInt(s):
+    roman_dict = {
+        'I': 1, 'V': 5, 'X': 10, 'L': 50,
+        'C': 100, 'D': 500, 'M': 1000
+    }
+
+    result = 0
+    for i in range(len(s)):               
+        # if a next char exists AND current value < next value → subtract
+        if i + 1 < len(s) and roman_dict[s[i]] < roman_dict[s[i + 1]]:
+            result -= roman_dict[s[i]]
+        else:
+            result += roman_dict[s[i]]  
+            
+    return result
+	  
         
 
    
