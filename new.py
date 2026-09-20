@@ -342,7 +342,22 @@ def min_amplitude(arr):
         
 
    
-        
+        __________________________________________________________
+	def k_radius_avg(nums, k):
+    n = len(nums)
+    result = [-1] * n
+    window_size = 2 * k + 1
+
+    if window_size > n:          # no window fits at all
+        return result
+
+    window = sum(nums[:window_size])   # first window: indices 0 .. 2k
+    result[k] = window // window_size  # its center is index k
+
+    for i in range(k + 1, n - k):      # remaining centers
+        window += nums[i + k] - nums[i - k - 1]   # add incoming, drop outgoing
+        result[i] = window // window_size
+    return result
 
 
 
