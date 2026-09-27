@@ -939,7 +939,21 @@ def mostFrequent(nums):
             max_elem = key
 
     return max_elem
-
+###############################################
+def the_column_shuffle(records: list[dict]):
+  result = {}
+  
+  for r in records:
+    id_ = r["id"]
+    amount = r["amount"]
+    if id_ in result:
+      n = len(result[id_])
+      result[id_][f"amount_{n}"] = amount      
+    else:
+      result[id_] = {"id" : id_ , "amount_1" : amount}
+      
+  return list(result.values())
+      
 
 
 
