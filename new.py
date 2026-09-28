@@ -399,6 +399,30 @@ def nth_highest_key(n: int, data: dict[str, int]) -> str:
   
   sorted_date = sorted(data.items(), key = lambda x:(-x[1],x[0]))
   return sorted_date[n - 1][0] 
+
+---------------------------------------
+def apply_transforms(rows: list, transforms: dict) -> list:
+  result = []
+  for i in range(len(rows)):
+    new_row = {}
+    for key, value in rows[i].items():
+     if key in transforms:
+       if transforms[key] == 'upper':
+         new_row[key] = value.upper()
+       elif transforms[key] == 'lower':
+         new_row[key] = value.lower()
+       elif transforms[key] == 'increment':
+         new_row[key] = value + 1
+       elif transforms[key] == 'double':
+         new_row[key] = value * 2            
+                          
+     else:
+       new_row[key] = value
+       
+    result.append(new_row)
+      
+        
+    print(result)
   
   
   
