@@ -358,6 +358,47 @@ def min_amplitude(arr):
         window += nums[i + k] - nums[i - k - 1]   # add incoming, drop outgoing
         result[i] = window // window_size
     return result
+___________________________________________________________
+def count_friends(groups: list[list[str]]) -> dict[str, int]:
+  friend = {}
+  
+  for pair in groups:
+    if len(pair) == 1:
+      a = pair[0]
+      if a not in friend:
+        friend[a] = set()
+        
+    else:
+      a = pair[0]
+      b = pair[1]
+      if a not in friend:
+        friend[a] = set()
+      if b not in friend:
+        friend[b] = set()
+        
+      friend[a].add(b)
+      friend[b].add(a)
+      
+  result = {name : len(s) for name, s in friend.items()}
+  return result
+  
+  
+  
+  
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
