@@ -381,6 +381,24 @@ def count_friends(groups: list[list[str]]) -> dict[str, int]:
       
   result = {name : len(s) for name, s in friend.items()}
   return result
+
+______________________________________________________________
+def find_sequels(titles: list[str]) -> list[str]:
+  result = []
+  for i in range(len(titles)):
+    for j in range(len(titles)):        
+      if i != j and titles[i].startswith(titles[j]) and len(titles[j]) < len(titles[i]):
+        result.append(titles[i])
+        break                       
+  return result
+
+
+def nth_highest_key(n: int, data: dict[str, int]) -> str:
+  if n > len(data) or n < 0:
+    return None
+  
+  sorted_date = sorted(data.items(), key = lambda x:(-x[1],x[0]))
+  return sorted_date[n - 1][0] 
   
   
   
