@@ -423,6 +423,9 @@ def apply_transforms(rows: list, transforms: dict) -> list:
       
         
     print(result)
+
+_____________________________________________________
+  return sorted(versions, key = lambda v: [int(x) for x in v.split('.')])
   
   
   
