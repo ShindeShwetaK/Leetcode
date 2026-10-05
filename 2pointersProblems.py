@@ -616,6 +616,27 @@ class Solution:
 
 ###############################################
 
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        nums1_dict = {}
+        result = []
+
+        for i in nums1:
+            if i not in nums1_dict:
+                nums1_dict[i] = 1
+            else:
+                nums1_dict[i] += 1
+
+        for j in nums2:
+            if j in nums1_dict and nums1_dict[j] > 0:
+                result.append(j)
+                nums1_dict[j] -= 1
+
+        return result
+
+#####################################
+
+
 
 
 
