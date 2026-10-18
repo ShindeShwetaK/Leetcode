@@ -655,6 +655,28 @@ class Solution:
 
         return count
 
+#####################################################
+class Solution:
+    def findDuplicate(self, paths: list[str]) -> list[list[str]]:
+        dic = {}
+
+        for p in paths:
+            fileNames = p.split()
+            dicts = fileNames[0]
+            for f in fileNames[1:]:
+                filename, filecontent = f[:f.index('(')] , f[f.index('(') + 1 : -1]
+                if filecontent not in dic:
+                    dic[filecontent] = []
+                dic[filecontent].append(dicts + '/' + filename)
+        
+        result = []
+        for value in dic.values():
+            if len(value) > 1:
+                result.append(value)
+
+        
+        return result
+
 
 
 
